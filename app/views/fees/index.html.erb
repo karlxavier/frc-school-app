@@ -99,7 +99,13 @@
                          <h5>Transportation Fees </h5>
                     </div>
                     <div id="transportation_fees">
-                         <%= render 'transportation_fees', fees: @fees, student: @student %>
+                         <% if @fees.present? %>
+                              <%= render 'transportation_fees', fees: @fees, student: @student %>
+                         <% else %>
+                              <div class="alert alert-warning">
+                                   Please search the student first to get all the transportation fees.
+                              </div>
+                         <% end %>
                     </div>
                </div>
           </div>
