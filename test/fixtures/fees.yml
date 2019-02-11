@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: MyString
+  total_amount: 9.99
+  paid_amount: 9.99
+  balance_amount: 9.99
+  last_payment: 2019-02-07 15:05:03
+
+two:
+  student_id: MyString
+  total_amount: 9.99
+  paid_amount: 9.99
+  balance_amount: 9.99
+  last_payment: 2019-02-07 15:05:03

@@ -1,0 +1,72 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20190210194011) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "fee_details", force: :cascade do |t|
+    t.integer "fee_id"
+    t.date "fee_date"
+    t.string "description"
+    t.integer "student_id"
+    t.decimal "amount", precision: 12, scale: 3
+    t.decimal "paid_amount", precision: 12, scale: 3
+    t.decimal "balance_amount", precision: 12, scale: 3
+    t.integer "payment_type"
+    t.string "receipt_no"
+    t.string "vno"
+    t.decimal "vat_percent", precision: 12, scale: 3
+    t.datetime "paid_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fees", force: :cascade do |t|
+    t.string "student_id"
+    t.decimal "total_amount", precision: 12, scale: 3
+    t.decimal "paid_amount", precision: 12, scale: 3
+    t.decimal "balance_amount", precision: 12, scale: 3
+    t.datetime "last_payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payment_types", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "receipts", force: :cascade do |t|
+    t.integer "fee_id"
+    t.decimal "amount"
+    t.integer "receipt_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "payment_type_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+end

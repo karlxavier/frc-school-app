@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FRC School Fees</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="pace  pace-inactive">
+      <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+        <div class="pace-progress-inner"></div>
+      </div>
+      <div class="pace-activity"></div>
+    </div>
+    <div id="wrapper">
+      <nav class="navbar-default navbar-static-side">
+        <div class="sidebar-collapse">
+          <ul class="nav metismenu" id="side-menu">
+            <li style="display: none;">
+                <%= link_to fees_path do %>
+                  <i class="fa fa-diamond"></i> 
+                  <span class="nav-label">Transportation Fees</span>
+                <% end %>
+                <%= link_to receipts_path do %>
+                  <i class="fa fa-diamond"></i> 
+                  <span class="nav-label">Receipts</span>
+                <% end %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="page-wrapper" class="gray-bg">
+        <%= yield %>
+      </div>
+    </div>
+    <div id="modal-shows"></div><!-- For modal shows, partial rendering -->
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<div class="ibox-content">
+     <div class="form-group row float-right">
+          <div class="widget style1" style="padding-top: 0; margin-top: 0;">
+               <div class="row">
+                    <div class="col-12 text-right">
+                         <span> Total Balance </span>
+                         <h2 class="font-bold"><%= number_to_currency(@fees.balance_amount, unit: "", :precision => 2, :delimiter => ',') %></h2>
+                    </div>
+               </div>
+          </div>
+          <div class="widget style1" style="padding-top: 0; margin-top: 0;">
+               <div class="row">
+                    <div class="col-12 text-right">
+                         <span> Paid Amount </span>
+                         <h2 class="font-bold"><%= number_to_currency(@fees.paid_amount, unit: "", :precision => 2, :delimiter => ',') %></h2>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div class="form-group row">
+          <div class="col-sm-4">
+               <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+          </div>
+     </div>
+     <div class="hr-line-dashed" style="margin-top: 40px;"></div>
+
+     <% if student.present? %>
+          <table class="table table-striped">
+               <thead>
+               <tr>
+                    <th>Status</th>
+                    <th>Fee Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Balance Amount</th>
+               </tr>
+               </thead>
+               <tbody>
+                    <% FeeDetail.student_all_fees(@fees.id).each do |fee| %>
+                         <tr>
+                              <td>
+                                   <% if fee.balance_amount === 0 %>
+                                        <span class="badge badge-success">Paid</span>
+                                   <% elsif fee.paid_amount != 0 && fee.paid_amount < fee.amount %>
+                                        <span class="badge badge-warning">Balance</span>
+                                   <% else %>
+                                        <span class="badge">Unpaid</span>
+                                   <% end %>
+                              </td>
+                              <td><%= fee.fee_date %></td>
+                              <td><%= fee.description %></td>
+                              <td><%= fee.amount %></td>
+                              <td><%= fee.paid_amount %></td>
+                              <td><%= fee.balance_amount %></td>
+                         </tr>
+                    <% end %>
+               </tbody>
+          </table>
+     <% else %>
+          <div class="alert alert-warning">
+               Please search the student first to get all the transportation fees.
+          </div>
+     <% end %>
+</div>

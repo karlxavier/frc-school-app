@@ -1,0 +1,107 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+     <div class="col-lg-10">
+          <h2>Transportation Fees</h2>
+          <ol class="breadcrumb">
+               <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+               </li>
+               <li class="breadcrumb-item">
+                    <a>Fees</a>
+               </li>
+               <li class="breadcrumb-item active">
+                    <strong>Transportation Fee</strong>
+               </li>
+          </ol>
+     </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom: 0;">
+     <div class="row">
+          <div class="col-lg-12">
+               <div class="ibox">
+                    <div class="ibox-content">
+                         <button type="button" class="btn btn-outline btn-success float-right" data-toggle="collapse" data-target="#student_details" aria-expanded="false">
+                              <span>Student Details</span>
+                         </button>
+                         <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Student Account No.</label>
+                              <div class="col-sm-3">
+                                   <%= form_for :filter, method: :get do |f| %>
+                                        <div class="input-group">
+                                             <%= f.text_field :code, class: "form-control", placeholder: "Student Account No.", required: "" %>
+                                             <span class="input-group-append"> 
+                                             <%= f.submit 'Filter', class: "btn btn-primary"%>
+                                        </div>
+                                   <% end %>                   
+                              </div>
+                         </div>
+                         <div id="student_details" class="collapse">
+                              <div class="hr-line-dashed"></div>
+                              <div class="form-group  row">
+                                   <label class="col-sm-2 col-form-label">Name</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['Name'] : '' %></h4>
+                                   </div>
+                                   <label class="col-sm-2 col-form-label">Status</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['StudentStatus'] : '' %></h4>
+                                   </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+
+                              <div class="form-group  row">
+                                   <label class="col-sm-2 col-form-label">Parent Name</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['ParentName'] : '' %></h4>
+                                   </div>
+                                   <label class="col-sm-2 col-form-label">Sex</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['Sex'] : '' %></h4>
+                                   </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+
+                              <div class="form-group  row">
+                                   <label class="col-sm-2 col-form-label">Nationality</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['Nationality'] : '' %></h4>
+                                   </div>
+                                   <label class="col-sm-2 col-form-label">Birthday</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['DOB'] : '' %></h4>
+                                   </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+
+                              <div class="form-group  row">
+                                   <label class="col-sm-2 col-form-label">Father Mobile</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['FatherMobile'] : '' %></h4>
+                                   </div>
+                                   <label class="col-sm-2 col-form-label">Bus Area</label>
+                                   <div class="col-sm-4">
+                                        <h4><%= @student.present? ? @student['BusArea'] : '' %></h4>
+                                   </div>
+                              </div>
+                              <div class="hr-line-dashed"></div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0;">
+     <div class="row">
+          <div class="col-lg-12">
+               <div class="ibox ">
+                    <div class="ibox-title">
+                         <h5>Transportation Fees </h5>
+                    </div>
+                    <div id="transportation_fees">
+                         <%= render 'transportation_fees', fees: @fees, student: @student %>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
