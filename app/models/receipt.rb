@@ -9,14 +9,15 @@ class Receipt < ApplicationRecord
 
           def update_balance
 
-               receipt_amount = self.amount #00
+               receipt_amount = self.amount #600
                fees = Fee.find(self.fee_id)
 
                FeeDetail.student_fees(self.fee_id).each do |fee|
                     if receipt_amount >= fee.balance_amount
                          puts '******* if'
+                         balance_amount = fee.balance_amount
                          fee.update_attributes(paid_amount: fee.amount, balance_amount: 0)
-                         receipt_amount = receipt_amount - fee.amount
+                         receipt_amount = receipt_amount - balance_amount
                     elsif receipt_amount <= fee.amount && receipt_amount > 0
                          puts '******* elsif'
                          fee.update_attributes(paid_amount: receipt_amount, balance_amount: fee.amount - receipt_amount)
@@ -24,6 +25,6 @@ class Receipt < ApplicationRecord
                     end
                end
 
-               fees.update_attributes(paid_amount: fees.paid_amount + self.amount, balance_amount: fees.total_amount - self.amount)
+               fees.update_attributes(paid_amount: fees.paid_amount + self.amount, balance_amount: fees.balance_amount - self.amount)
           end
 end

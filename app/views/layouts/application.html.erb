@@ -8,34 +8,60 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div class="pace  pace-inactive">
-      <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
-        <div class="pace-progress-inner"></div>
-      </div>
-      <div class="pace-activity"></div>
-    </div>
-    <div id="wrapper">
-      <nav class="navbar-default navbar-static-side">
-        <div class="sidebar-collapse">
-          <ul class="nav metismenu" id="side-menu">
-            <li style="display: none;">
-                <%= link_to fees_path do %>
-                  <i class="fa fa-diamond"></i> 
-                  <span class="nav-label">Transportation Fees</span>
-                <% end %>
-                <%= link_to receipts_path do %>
-                  <i class="fa fa-diamond"></i> 
-                  <span class="nav-label">Receipts</span>
-                <% end %>
-            </li>
-          </ul>
+  <body class="<%= user_signed_in? ? '' : 'gray-bg' %>">
+    <% if user_signed_in? %>
+      <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+          <div class="pace-progress-inner"></div>
         </div>
-      </nav>
-      <div id="page-wrapper" class="gray-bg">
-        <%= yield %>
+        <div class="pace-activity"></div>
       </div>
-    </div>
+      <div id="wrapper">
+        <nav class="navbar-default navbar-static-side">
+          <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+              <li class="nav-header">
+                  <div class="dropdown profile-element">
+                      <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                          <span class="block m-t-xs font-bold"><%= current_user.email %></span>
+                          <span class="text-muted text-xs block">Profile <b class="caret"></b></span>
+                      </a>
+                      <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                          <li><a class="dropdown-item" href="#">Profile</a></li>
+                          <li class="dropdown-divider"></li>
+                          <li>
+                            <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="logo-element">
+                      FRC
+                  </div>
+              </li>
+              <li style="display: none;">
+                  <%= link_to fees_path do %>
+                    <i class="fa fa-diamond"></i> 
+                    <span class="nav-label">Transportation Fees</span>
+                  <% end %>
+                  <%= link_to receipts_path do %>
+                    <i class="fa fa-diamond"></i> 
+                    <span class="nav-label">Receipts</span>
+                  <% end %>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg">
+          <%= yield %>
+        </div>
+      </div>
+    <% else %>
+      <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+          <%= yield %>
+        </div>
+      </div>
+    <% end %>
     <div id="modal-shows"></div><!-- For modal shows, partial rendering -->
   </body>
 </html>
