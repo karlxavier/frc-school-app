@@ -6,7 +6,7 @@ class FeesController < ApplicationController
     if params[:filter].present?
       url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
       @results = HTTParty.get(url)
-      @student = (@results['Student'].find { |u| u['Code','Name'] == params[:filter][:code] })
+      @student = (@results['Student'].find { |u| u['Code'] == params[:filter][:code] })
       
       if @student.present?
         if Fee.where(student_id: @student['Code']).present?
@@ -16,6 +16,11 @@ class FeesController < ApplicationController
           session[:FatherMobile] = @student['FatherMobile']
           session[:BusArea] = @student['BusArea']
           session[:FatherEmail] = @student['FatherEmail']
+
+          session[:StudentName] = @student['Name']
+          session[:StudentCode] = @student['Code']
+          session[:StudentClass] = @student['Class']
+          session[:StudentDivision] = @student['Division']
         else
           @fees = nil
         end

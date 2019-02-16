@@ -34,9 +34,9 @@ class FeeDetailsController < ApplicationController
           
                     format.js
                else
-                    if @receipt.errors.any?
+                    if @fee_detail.errors.any?
                          puts '******* ERRORS ********'
-                         @receipt.errors.full_messages.each do |message|
+                         @fee_detail.errors.full_messages.each do |message|
                              puts message
                          end
                     end

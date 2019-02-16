@@ -23,10 +23,16 @@
                               <h4 class="text-navy">RCT-<%= @receipt.id %></h4>
                               <span>To:</span>
                               <address>
-                              <strong><%= session[:ParentName] %></strong><br>
-                              <%= session[:BusArea] %><br>
-                              <%= session[:FatherEmail] %><br>
-                              <abbr title="Phone">P:</abbr> <%= session[:FatherMobile] %>
+                                   <strong><%= session[:ParentName] %></strong><br>
+                                   <%= session[:BusArea] %><br>
+                                   <%= session[:FatherEmail] %><br>
+                                   <abbr title="Phone">P:</abbr> <%= session[:FatherMobile] %>
+                              </address>
+                              <span>Student:</span>
+                              <address>
+                                   <strong><%= session[:StudentCode] %> : <%= session[:StudentName] %></strong><br>
+                                   Class: <%= session[:StudentClass] %><br>
+                                   Division: <%= session[:StudentDivision] %><br>
                               </address>
                               <p>
                                    <span><strong>Receipt Date:</strong> <%= @receipt.created_at.strftime("%d-%b-%Y %I:%M%P") %></span><br>
