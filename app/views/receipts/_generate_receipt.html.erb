@@ -15,7 +15,7 @@
                               <div class="col-lg-10">
                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                         <label class="btn btn-success  dim btn-large-dim btn-outline active">
-                                             <%= f.radio_button :payment_type_id, 1 %> <%# CASH %>
+                                             <%= f.radio_button :payment_type_id, 1, checked: true %> <%# CASH %>
                                              <i class="fa fa-money"></i>
                                         </label>
                                         <label class="btn btn-success  dim btn-large-dim btn-outline">
@@ -28,6 +28,13 @@
                                              <i class="fa fa-credit-card"></i>
                                         </label>
                                    </div>
+                              </div>
+                         </div>
+                         <div class="hr-line-dashed"></div>
+                         <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Reference</label>
+                              <div class="col-lg-10">
+                                   <%= f.text_field :payment_reference, class: "form-control form-control-lg m-b", placeholder: "Cheque or Credit card last 4 digits" %>
                               </div>
                          </div>
                          <div class="hr-line-dashed"></div>

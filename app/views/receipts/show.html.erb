@@ -1,0 +1,87 @@
+<div class="row">
+     <div class="col-lg-12">
+          <div class="wrapper wrapper-content animated fadeInRight">
+               <div class="ibox-content p-xl">
+                    <div class="row">
+                         <div class="col-sm-12">
+                              <%= link_to receipt_path(1), :onclick => 'window.print();return false;', class: "btn btn-white btn-bitbucket float-right" do %>
+                                   <i class="fa fa-print"></i>
+                              <% end %> 
+                         </div>
+                         <div class="col-sm-6">
+                              <h5>From:</h5>
+                              <address>
+                              <strong>Fast Rent a Car</strong><br>
+                              7F ADNIF Bldg., Corniche Road<br>
+                              Abu Dhabi, United Arab Emirates<br>
+                              <abbr title="Phone">P:</abbr> +971 2 6220088
+                              </address>
+                         </div>
+
+                         <div class="col-sm-6 text-right">
+                              <h4>Receipt No.</h4>
+                              <h4 class="text-navy">RCT-<%= @receipt.id %></h4>
+                              <span>To:</span>
+                              <address>
+                              <strong><%= session[:ParentName] %></strong><br>
+                              <%= session[:BusArea] %><br>
+                              <%= session[:FatherEmail] %><br>
+                              <abbr title="Phone">P:</abbr> <%= session[:FatherMobile] %>
+                              </address>
+                              <p>
+                                   <span><strong>Receipt Date:</strong> <%= @receipt.created_at.strftime("%d-%b-%Y %I:%M%P") %></span><br>
+                                   <span><strong>Payment Type:</strong> <%= @receipt.payment_type.description %> ( <%= @receipt.payment_reference %> )</span><br>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="table-responsive m-t">
+                         <table class="table invoice-table">
+                              <thead>
+                              <tr>
+                                   <th>Item List</th>
+                                   <th>Tax</th>
+                                   <th>Total Price</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                   <% @receipt.receipt_details.each do |receipt_detail| %>
+                                        <tr>
+                                             <td>
+                                                  <div>
+                                                       <strong><%= receipt_detail.fee_detail.description %></strong>
+                                                  </div>
+                                                  <small><%= receipt_detail.fee_detail.fee_date %></small>
+                                             </td>
+                                             <td>0</td>
+                                             <td>AED <%= receipt_detail.amount %></td>
+                                        </tr>
+                                   <% end %>
+                              </tbody>
+                         </table>
+                    </div><!-- /table-responsive -->
+
+                    <table class="table invoice-total">
+                         <tbody>
+                         <tr>
+                              <td><strong>TAX :</strong></td>
+                              <td>0.00</td>
+                         </tr>
+                         <tr>
+                              <td><strong>TOTAL :</strong></td>
+                              <td>
+                                   <h4>
+                                        <%= @receipt.amount %>
+                                   </h4>
+                              </td>
+                         </tr>
+                         </tbody>
+                    </table>
+
+                    <div class="well m-t"><strong>Comments</strong>
+                         Please contact use for any disputes regarding this document.
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>

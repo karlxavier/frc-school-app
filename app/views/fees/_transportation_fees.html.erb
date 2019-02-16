@@ -19,7 +19,16 @@
      </div>
      <div class="form-group row">
           <div class="col-sm-4">
-               <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+               <div class="row">
+                    <div class="col-lg-6">
+                         <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                    </div>
+                    <div class="col-lg-6">
+                         <% unless @fees.paid? %>
+                              <%= link_to 'Modify Student Rate', edit_fee_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                         <% end %>
+                    </div>
+               </div>
           </div>
      </div>
      <div class="hr-line-dashed" style="margin-top: 40px;"></div>
@@ -30,10 +39,12 @@
                <tr>
                     <th>Status</th>
                     <th>Fee Date</th>
-                    <th>Description</th>
+                    <th>Description</th> 
+                    <th>Chargeable</th> 
                     <th>Amount</th>
                     <th>Paid Amount</th>
                     <th>Balance Amount</th>
+                    <th></th>
                </tr>
                </thead>
                <tbody>
@@ -50,9 +61,22 @@
                               </td>
                               <td><%= fee.fee_date %></td>
                               <td><%= fee.description %></td>
+                              <td>
+                                   <% fee.chargeable %>
+                                   <span class="badge <%= fee.chargeable? ? 'badge-success' : 'badge-danger' %>"><%= fee.chargeable %></span>
+                              </td>
                               <td><%= fee.amount %></td>
                               <td><%= fee.paid_amount %></td>
                               <td><%= fee.balance_amount %></td>
+                              <td>
+                                   <div class="btn-group">
+                                        <% if fee.balance_amount > 0 %>
+                                             <%= link_to 'Edit', edit_fee_detail_path(fee), class: "btn btn-white btn-xs", remote: true %>  
+                                        <% else %>
+                                             <button type="button" class="btn btn-default btn-xs" disabled>Edit</button>
+                                        <% end %>
+                                   </div>
+                              </td>
                          </tr>
                     <% end %>
                </tbody>

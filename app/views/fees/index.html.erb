@@ -93,7 +93,17 @@
 
 <div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 0;">
      <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-4">
+               <div class="ibox ">
+                    <div class="ibox-title">
+                         <h5>Payment History </h5>
+                    </div>
+                    <div id="payment_history">
+                         <%= render 'payment_history', fees: @fees %>    
+                    </div>
+               </div>
+          </div>
+          <div class="col-lg-8">
                <div class="ibox ">
                     <div class="ibox-title">
                          <h5>Transportation Fees </h5>
