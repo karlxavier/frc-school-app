@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  name: MyString
+  parent_name: MyString
+  status: MyString
+  gender: MyString
+  nationality: MyString
+  birthdate: MyString
+  roll_no: MyString
+  class: MyString
+  division: MyString
+  address1: MyString
+  address2: MyString
+  father_mobile: MyString
+  father_email: MyString
+  mother_name: MyString
+  mother_mobile: MyString
+  bus_mode: MyString
+  bus_time_in: MyString
+  bus_time_out: MyString
+  religion: MyString
+  joining_date: MyString
+
+two:
+  code: MyString
+  name: MyString
+  parent_name: MyString
+  status: MyString
+  gender: MyString
+  nationality: MyString
+  birthdate: MyString
+  roll_no: MyString
+  class: MyString
+  division: MyString
+  address1: MyString
+  address2: MyString
+  father_mobile: MyString
+  father_email: MyString
+  mother_name: MyString
+  mother_mobile: MyString
+  bus_mode: MyString
+  bus_time_in: MyString
+  bus_time_out: MyString
+  religion: MyString
+  joining_date: MyString

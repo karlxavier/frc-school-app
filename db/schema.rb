@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190216163820) do
+ActiveRecord::Schema.define(version: 20190302133145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,48 @@ ActiveRecord::Schema.define(version: 20190216163820) do
     t.datetime "updated_at", null: false
     t.integer "payment_type_id"
     t.string "payment_reference"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.string "parent_name"
+    t.string "status"
+    t.string "gender"
+    t.string "nationality"
+    t.string "birthdate"
+    t.string "roll_no"
+    t.string "student_class"
+    t.string "division"
+    t.string "address1"
+    t.string "address2"
+    t.string "father_mobile"
+    t.string "father_email"
+    t.string "mother_name"
+    t.string "mother_mobile"
+    t.string "bus_mode"
+    t.string "bus_time_in"
+    t.string "bus_time_out"
+    t.string "religion"
+    t.string "joining_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "temp_details", force: :cascade do |t|
+    t.string "student_id"
+    t.decimal "paid_amount", precision: 12, scale: 3
+    t.decimal "balance_amount", precision: 12, scale: 3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "temp_masters", force: :cascade do |t|
+    t.string "student_id"
+    t.string "month_year"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

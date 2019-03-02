@@ -1,0 +1,2 @@
+class TempDetail < ApplicationRecord
+end

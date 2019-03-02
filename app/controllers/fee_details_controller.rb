@@ -44,6 +44,11 @@ class FeeDetailsController < ApplicationController
           end
      end
 
+     def import_csv
+      FeeDetail.import(params[:file])
+      redirect_to root_path
+     end
+
      private
 
           def fee_detail_params

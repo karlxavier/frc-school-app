@@ -36,16 +36,16 @@
      <% if student.present? %>
           <table class="table table-striped">
                <thead>
-               <tr>
-                    <th>Status</th>
-                    <th>Fee Date</th>
-                    <th>Description</th> 
-                    <th>Chargeable</th> 
-                    <th>Amount</th>
-                    <th>Paid Amount</th>
-                    <th>Balance Amount</th>
-                    <th></th>
-               </tr>
+                    <tr>
+                         <th>Status</th>
+                         <th>Fee Date</th>
+                         <th>Description</th> 
+                         <th>Chargeable</th> 
+                         <th>Amount</th>
+                         <th>Paid Amount</th>
+                         <th>Balance Amount</th>
+                         <th></th>
+                    </tr>
                </thead>
                <tbody>
                     <% FeeDetail.student_all_fees(@fees.id).each do |fee| %>

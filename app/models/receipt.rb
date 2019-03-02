@@ -11,7 +11,7 @@ class Receipt < ApplicationRecord
 
           def update_balance
 
-               receipt_amount = self.amount #600
+               receipt_amount = self.amount
                fees = Fee.find(self.fee_id)
 
                FeeDetail.student_fees(self.fee_id).each do |fee|

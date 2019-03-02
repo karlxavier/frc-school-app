@@ -1,0 +1,19 @@
+<h3>Master</h3>
+<%= form_tag uploads_master_import_csv_path, multipart: true do %>
+     <div class="form-group">
+     <label for="exampleFormControlFile1">Import Here:</label>
+     <%= file_field_tag :file %>
+     <br><br>
+     <%= submit_tag 'Import File', class: "btn btn-primary btn-sm" %>
+     </div>
+<% end %>
+<br><br>
+<h3>Details</h3>
+<%= form_tag uploads_detail_import_csv_path, multipart: true do %>
+     <div class="form-group">
+     <label for="exampleFormControlFile1">Import Here:</label>
+     <%= file_field_tag :file %>
+     <br><br>
+     <%= submit_tag 'Import File', class: "btn btn-primary btn-sm" %>
+     </div>
+<% end %>
