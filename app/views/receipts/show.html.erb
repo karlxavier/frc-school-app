@@ -11,7 +11,7 @@
                          <div class="col-sm-6">
                               <h5>From:</h5>
                               <address>
-                              <strong>Fast Rent a Car</strong><br>
+                              <h2>Fast Rent a Car</h2><br>
                               7F ADNIF Bldg., Corniche Road<br>
                               Abu Dhabi, United Arab Emirates<br>
                               <abbr title="Phone">P:</abbr> +971 2 6220088
@@ -20,7 +20,7 @@
 
                          <div class="col-sm-6 text-right">
                               <h4>Receipt No.</h4>
-                              <h4 class="text-navy">RCT-<%= @receipt.id %></h4>
+                              <h3 class="text-navy">RCT-<%= @receipt.id %></h3>
                               <span>To:</span>
                               <address>
                                    <strong><%= session[:ParentName] %></strong><br>
@@ -55,12 +55,12 @@
                                         <tr>
                                              <td>
                                                   <div>
-                                                       <strong><%= receipt_detail.fee_detail.description %></strong>
+                                                       <h3><%= receipt_detail.fee_detail.description %></h3>
                                                   </div>
-                                                  <small><%= receipt_detail.fee_detail.fee_date %></small>
+                                                  <strong><%= receipt_detail.fee_detail.fee_date %></strong>
                                              </td>
                                              <td>0</td>
-                                             <td>AED <%= receipt_detail.amount %></td>
+                                             <td><h3>AED <%= receipt_detail.amount %></h3></td>
                                         </tr>
                                    <% end %>
                               </tbody>
@@ -74,11 +74,27 @@
                               <td>0.00</td>
                          </tr>
                          <tr>
-                              <td><strong>TOTAL :</strong></td>
+                              <td><strong>TOTAL PAID :</strong></td>
                               <td>
-                                   <h4>
+                                   <h2>
                                         <%= @receipt.amount %>
-                                   </h4>
+                                   </h2>
+                              </td>
+                         </tr>
+                         <tr>
+                              <td><strong>TOTAL CHARGED :</strong></td>
+                              <td>
+                                   <h2>
+                                        <%= @receipt.receipt_details.sum(:amount) %>
+                                   </h2>
+                              </td>
+                         </tr>
+                         <tr>
+                              <td><strong>CARYOVER :</strong></td>
+                              <td>
+                                   <h2>
+                                        <%= @receipt.receipt_details.sum(:amount) - @receipt.amount %>
+                                   </h2>
                               </td>
                          </tr>
                          </tbody>

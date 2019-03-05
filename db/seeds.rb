@@ -1,9 +1,20 @@
+# CALCULATE RECEIPTS AND FEES
+# TempDetail.all.each do |summary|
+
+# end
+
 # CREATE ALL STUDENT MASTER
+# require 'date'
+
 # url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
 # @students = HTTParty.get(url)
 
 # Student.destroy_all
 # @students['Student'].each do |student|
+
+#      joining_date = DateTime.strptime(student['JoiningDate'], '%m/%d/%Y')
+#      # formatted_date = joining_date.strftime('%m/%d/%Y')
+
 #      Student.create(code: student['Code'],
 #      name: student['Name'],
 #      parent_name: student['ParentName'],
@@ -19,6 +30,7 @@
 #      father_mobile: student['FatherMobile'],
 #      father_email: student['FatherEmail'],
 #      mother_name: student['MotherName'],
+#      joining_date: joining_date,
 #      )
 # end
 
@@ -30,13 +42,15 @@
 
 
 # CREATE ALL STUDENT TRANSPORTATION FEES
-url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
-@students = HTTParty.get(url)
+# url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
+# @students = HTTParty.get(url)
 
 Fee.destroy_all
 FeeDetail.destroy_all
 @students['Student'].each do |student|
      @fee = Fee.create( student_id: student['Code'], total_amount: 4000, paid_amount: 0, balance_amount: 4000, fee_rate: 400)
+     @fee.fee_details.create(fee_date: '2016-09-01', description: 'Transportation Fee for September-2016', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)
+
      @fee.fee_details.create(fee_date: '2019-01-01', description: 'Transportation Fee for January-2019', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)
      @fee.fee_details.create(fee_date: '2019-02-01', description: 'Transportation Fee for February-2019', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)
      @fee.fee_details.create(fee_date: '2019-03-01', description: 'Transportation Fee for March-2019', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)

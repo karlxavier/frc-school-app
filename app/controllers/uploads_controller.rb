@@ -2,14 +2,14 @@ class UploadsController < ApplicationController
 
      def uploads
      end
-     
-     def detail_import_csv
-          FeeDetail.import(params[:file])
+
+     def master_import_2016
+          Fee.import_2016(params[:file])
           redirect_to root_path
      end
 
-     def master_import_csv
-          Fee.import(params[:file])
+     def master_import_2019
+          Fee.import_2019(params[:file])
           redirect_to root_path
      end
 

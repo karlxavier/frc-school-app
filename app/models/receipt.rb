@@ -23,9 +23,10 @@ class Receipt < ApplicationRecord
                          receipt.receipt_details.create(amount: fee.balance_amount, fee_detail_id: fee.id)
                     elsif receipt_amount <= fee.amount && receipt_amount > 0
                          fee.update_attributes(paid_amount: receipt_amount, balance_amount: fee.amount - receipt_amount)
-                         receipt_amount = 0
+                         
 
                          receipt.receipt_details.create(amount: receipt_amount, fee_detail_id: fee.id)
+                         receipt_amount = 0
                     end
                end
 

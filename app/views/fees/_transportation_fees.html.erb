@@ -53,10 +53,10 @@
                               <td>
                                    <% if fee.balance_amount === 0 %>
                                         <span class="badge badge-success">Paid</span>
-                                   <% elsif fee.paid_amount != 0 && fee.paid_amount < fee.amount %>
+                                   <% elsif fee.paid_amount.present? && fee.paid_amount != 0 && fee.paid_amount < fee.amount %>
                                         <span class="badge badge-warning">Balance</span>
                                    <% else %>
-                                        <span class="badge">Unpaid</span>
+                                        <span class="badge badge-danger">Unpaid</span>
                                    <% end %>
                               </td>
                               <td><%= fee.fee_date %></td>
@@ -70,7 +70,7 @@
                               <td><%= fee.balance_amount %></td>
                               <td>
                                    <div class="btn-group">
-                                        <% if fee.balance_amount > 0 %>
+                                        <% if fee.balance_amount.present? ? fee.balance_amount : 0 > 0 %>
                                              <%= link_to 'Edit', edit_fee_detail_path(fee), class: "btn btn-white btn-xs", remote: true %>  
                                         <% else %>
                                              <button type="button" class="btn btn-default btn-xs" disabled>Edit</button>

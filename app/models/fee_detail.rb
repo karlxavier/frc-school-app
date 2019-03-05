@@ -4,7 +4,8 @@ class FeeDetail < ApplicationRecord
     # before_save :update_fee_total_balance
 
     scope :student_fees, -> (fee_id) { where(fee_id: fee_id, chargeable: true).where("balance_amount > ?", 0).order(fee_date: :asc) }
-    scope :student_all_fees, -> (fee_id) { where(fee_id: fee_id).order(fee_date: :asc) }
+    scope :student_fees_upload, -> (fee_id) { where(fee_id: fee_id, chargeable: true).order(fee_date: :asc) }
+    scope :student_all_fees, -> (fee_id) { where(fee_id: fee_id).order(fee_date: :desc) }
 
     def update_fee_total_balance
         fee = Fee.find(self.fee_id)

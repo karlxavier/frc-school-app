@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190302133145) do
+ActiveRecord::Schema.define(version: 20190305040344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20190302133145) do
     t.datetime "updated_at", null: false
     t.decimal "fee_rate", precision: 12, scale: 3
     t.boolean "paid", default: false
+    t.integer "school_year_id"
   end
 
   create_table "payment_types", force: :cascade do |t|
@@ -69,6 +70,12 @@ ActiveRecord::Schema.define(version: 20190302133145) do
     t.string "payment_reference"
   end
 
+  create_table "school_years", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -90,9 +97,10 @@ ActiveRecord::Schema.define(version: 20190302133145) do
     t.string "bus_time_in"
     t.string "bus_time_out"
     t.string "religion"
-    t.string "joining_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "joining_date"
+    t.decimal "rate", precision: 12, scale: 3
   end
 
   create_table "temp_details", force: :cascade do |t|
