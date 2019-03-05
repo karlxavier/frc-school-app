@@ -24,6 +24,7 @@ class ReceiptsController < ApplicationController
   def create
     @fee = Fee.find(params[:receipt][:fee_id])
     @receipt = @fee.receipts.new(receipt_params)
+    @receipt.receipt_date = DateTime.now
 
       respond_to do |format|
           if @receipt.save
@@ -70,7 +71,7 @@ class ReceiptsController < ApplicationController
   private
 
     def receipt_params
-      params.require(:receipt).permit(:amount, :fee_id, :payment_type_id, :payment_reference)
+      params.require(:receipt).permit(:amount, :fee_id, :payment_type_id, :payment_reference, :receipt_date)
     end
 
 end

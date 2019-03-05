@@ -14,7 +14,7 @@
                          <% @fees.receipts.order(created_at: :desc).each do |receipt| %>
                               <tr>
                                    <td>RCT-<%= receipt.id %></td>
-                                   <td><%= receipt.created_at.strftime("%d-%b-%y %I:%M%P") %></td>
+                                   <td><%= receipt.receipt_date.strftime("%d-%b-%y") %></td>
                                    <td><%= receipt.amount %></td>
                                    <td>
                                         <%= link_to receipt_path(receipt), class: "btn btn-white btn-bitbucket" do %>

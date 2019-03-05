@@ -9,8 +9,7 @@
                               <% end %> 
                          </div>
                          <div class="col-sm-6">
-                              <h5>From:</h5>
-                              <address>
+                              <address >
                               <h2>Fast Rent a Car</h2><br>
                               7F ADNIF Bldg., Corniche Road<br>
                               Abu Dhabi, United Arab Emirates<br>
@@ -20,7 +19,7 @@
 
                          <div class="col-sm-6 text-right">
                               <h4>Receipt No.</h4>
-                              <h3 class="text-navy">RCT-<%= @receipt.id %></h3>
+                              <h3 class="text-navy" style="font-size: 26px;">RCT-<%= @receipt.id %></h3>
                               <span>To:</span>
                               <address>
                                    <strong><%= session[:ParentName] %></strong><br>
@@ -35,7 +34,7 @@
                                    Division: <%= session[:StudentDivision] %><br>
                               </address>
                               <p>
-                                   <span><strong>Receipt Date:</strong> <%= @receipt.created_at.strftime("%d-%b-%Y %I:%M%P") %></span><br>
+                                   <span><strong>Receipt Date:</strong> <%= @receipt.receipt_date.strftime("%d-%b-%Y") %></span><br>
                                    <span><strong>Payment Type:</strong> <%= @receipt.payment_type.description %> ( <%= @receipt.payment_reference %> )</span><br>
                               </p>
                          </div>

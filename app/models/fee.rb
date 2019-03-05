@@ -6,6 +6,7 @@ class Fee < ApplicationRecord
     scope :student_fees, -> (fee_id) { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
 
     require 'csv'
+    require 'date'
 
     def self.import_2019(file)
         spreadsheet= open_spreadsheet(file)
@@ -106,41 +107,41 @@ class Fee < ApplicationRecord
             end
 
             if advance_amt < 0
-                update_balance_2019(fee.id, advance_amt * -1)
+                update_balance_2019(fee.id, advance_amt * -1, "2019-03-06")
             end
 
             if col_apr_18.present?
-                update_balance_2019(fee.id, col_apr_18)
+                update_balance_2019(fee.id, col_apr_18, "2018-04-01")
             end
             if col_may_18.present?
-                update_balance_2019(fee.id, col_may_18)
+                update_balance_2019(fee.id, col_may_18, "2018-05-01")
             end
             if col_jun_18.present?
-                update_balance_2019(fee.id, col_jun_18)
+                update_balance_2019(fee.id, col_jun_18, "2018-06-01")
             end
             if col_jul_18.present?
-                update_balance_2019(fee.id, col_jul_18)
+                update_balance_2019(fee.id, col_jul_18, "2018-07-01")
             end
             if col_aug_18.present?
-                update_balance_2019(fee.id, col_aug_18)
+                update_balance_2019(fee.id, col_aug_18, "2018-08-01")
             end
             if col_sep_18.present?
-                update_balance_2019(fee.id, col_sep_18)
+                update_balance_2019(fee.id, col_sep_18, "2018-09-01")
             end
             if col_oct_18.present?
-                update_balance_2019(fee.id, col_oct_18)
+                update_balance_2019(fee.id, col_oct_18, "2018-10-01")
             end
             if col_nov_18.present?
-                update_balance_2019(fee.id, col_nov_18)
+                update_balance_2019(fee.id, col_nov_18, "2018-11-01")
             end
             if col_dec_18.present?
-                update_balance_2019(fee.id, col_dec_18)
+                update_balance_2019(fee.id, col_dec_18, "2018-12-01")
             end
             if col_jan_19.present?
-                update_balance_2019(fee.id, col_jan_19)
+                update_balance_2019(fee.id, col_jan_19, "2019-01-01")
             end
             if col_feb_19.present?
-                update_balance_2019(fee.id, col_feb_19)
+                update_balance_2019(fee.id, col_feb_19, "2019-02-01")
             end
 
         end
@@ -264,64 +265,64 @@ class Fee < ApplicationRecord
         end
 
         if col_aug_16.present?
-            update_balance_2016(fee.id, col_aug_16)
+            update_balance_2016(fee.id, col_aug_16, "2016-08-01")
         end
         if col_sep_16.present?
-            update_balance_2016(fee.id, col_sep_16)
+            update_balance_2016(fee.id, col_sep_16, "2016-09-01")
         end
         if col_oct_16.present?
-            update_balance_2016(fee.id, col_oct_16)
+            update_balance_2016(fee.id, col_oct_16, "2016-10-01")
         end
         if col_nov_16.present?
-            update_balance_2016(fee.id, col_nov_16)
+            update_balance_2016(fee.id, col_nov_16, "2016-11-01")
         end
         if col_dec_16.present?
-            update_balance_2016(fee.id, col_dec_16)
+            update_balance_2016(fee.id, col_dec_16, "2016-12-01")
         end
         if col_jan_17.present?
-            update_balance_2016(fee.id, col_jan_17)
+            update_balance_2016(fee.id, col_jan_17, "2017-01-01")
         end
         if col_feb_17.present?
-            update_balance_2016(fee.id, col_feb_17)
+            update_balance_2016(fee.id, col_feb_17, "2017-02-01")
         end
         if col_mar_17.present?
-            update_balance_2016(fee.id, col_mar_17)
+            update_balance_2016(fee.id, col_mar_17, "2017-03-01")
         end
         if col_apr_17.present?
-            update_balance_2016(fee.id, col_apr_17)
+            update_balance_2016(fee.id, col_apr_17, "2017-04-01")
         end
         if col_may_17.present?
-            update_balance_2016(fee.id, col_may_17)
+            update_balance_2016(fee.id, col_may_17, "2017-05-01")
         end
         if col_jun_17.present?
-            update_balance_2016(fee.id, col_jun_17)
+            update_balance_2016(fee.id, col_jun_17, "2017-06-01")
         end
         if col_jul_17.present?
-            update_balance_2016(fee.id, col_jul_17)
+            update_balance_2016(fee.id, col_jul_17, "2017-07-01")
         end
         if col_aug_17.present?
-            update_balance_2016(fee.id, col_aug_17)
+            update_balance_2016(fee.id, col_aug_17, "2017-08-01")
         end
         if col_sep_17.present?
-            update_balance_2016(fee.id, col_sep_17)
+            update_balance_2016(fee.id, col_sep_17, "2017-09-01")
         end
         if col_oct_17.present?
-            update_balance_2016(fee.id, col_oct_17)
+            update_balance_2016(fee.id, col_oct_17, "2017-10-01")
         end
         if col_nov_17.present?
-            update_balance_2016(fee.id, col_nov_17)
+            update_balance_2016(fee.id, col_nov_17, "2017-11-01")
         end
         if col_dec_17.present?
-            update_balance_2016(fee.id, col_dec_17)
+            update_balance_2016(fee.id, col_dec_17, "2017-12-01")
         end
         if col_jan_18.present?
-            update_balance_2016(fee.id, col_jan_18)
+            update_balance_2016(fee.id, col_jan_18, "2018-01-01")
         end
         if col_feb_18.present?
-            update_balance_2016(fee.id, col_feb_18)
+            update_balance_2016(fee.id, col_feb_18, "2018-02-01")
         end
         if col_mar_18.present?
-            update_balance_2016(fee.id, col_mar_18)
+            update_balance_2016(fee.id, col_mar_18, "2018-03-01")
         end
 
 
@@ -329,17 +330,15 @@ class Fee < ApplicationRecord
   
     end
 
-    def self.update_balance_2016(fee_id, rct_amount)
+    def self.update_balance_2016(fee_id, rct_amount, rct_date)
 
         receipt_amount = rct_amount.to_f
         fees = Fee.find(fee_id)
 
-        
-
         student_fees = FeeDetail.student_fees(fee_id)
 
         if student_fees.present?
-            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3)
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
 
             student_fees.each do |fee|
                 fee_balance_amount = fee.balance_amount
@@ -360,11 +359,11 @@ class Fee < ApplicationRecord
                 
             end
         else
-            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3)
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
         end
     end
 
-    def self.update_balance_2019(fee_id, rct_amount)
+    def self.update_balance_2019(fee_id, rct_amount, rct_date)
 
         receipt_amount = rct_amount.to_f
         fees = Fee.find(fee_id)
@@ -372,7 +371,7 @@ class Fee < ApplicationRecord
         student_fees = FeeDetail.student_fees(fee_id)
 
         if student_fees.present?
-            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3)
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
 
             student_fees.each do |fee|
                 fee_balance_amount = fee.balance_amount
@@ -393,7 +392,7 @@ class Fee < ApplicationRecord
                 
             end
         else
-            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3)
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
         end
     end
 
