@@ -76,34 +76,54 @@ class Fee < ApplicationRecord
             end
 
             if re_apr_18.present?
-                fee.fee_details.create!(fee_date: '2018-04-01', description: 'Transportation Fee for April-2018', student_id: student_id, balance_amount: re_apr_18, amount: re_apr_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for April-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-04-01', description: 'Transportation Fee for April-2018', student_id: student_id, balance_amount: re_apr_18, amount: re_apr_18)
+                end
             end
             if re_may_18.present?
-                fee.fee_details.create!(fee_date: '2018-05-01', description: 'Transportation Fee for May-2018', student_id: student_id, balance_amount: re_may_18, amount: re_may_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for May-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-05-01', description: 'Transportation Fee for May-2018', student_id: student_id, balance_amount: re_may_18, amount: re_may_18)
+                end
             end
             if re_jun_18.present?
-                fee.fee_details.create!(fee_date: '2018-06-01', description: 'Transportation Fee for June-2018', student_id: student_id, balance_amount: re_jun_18, amount: re_jun_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for June-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-06-01', description: 'Transportation Fee for June-2018', student_id: student_id, balance_amount: re_jun_18, amount: re_jun_18)
+                end
             end
             if re_sep_18.present?
-                fee.fee_details.create!(fee_date: '2018-09-01', description: 'Transportation Fee for September-2018', student_id: student_id, balance_amount: re_sep_18, amount: re_sep_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for September-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-09-01', description: 'Transportation Fee for September-2018', student_id: student_id, balance_amount: re_sep_18, amount: re_sep_18)
+                end
             end
             if re_oct_18.present?
-                fee.fee_details.create!(fee_date: '2018-10-01', description: 'Transportation Fee for October-2018', student_id: student_id, balance_amount: re_oct_18, amount: re_oct_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for October-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-10-01', description: 'Transportation Fee for October-2018', student_id: student_id, balance_amount: re_oct_18, amount: re_oct_18)
+                end
             end
             if re_nov_18.present?
-                fee.fee_details.create!(fee_date: '2018-11-01', description: 'Transportation Fee for November-2018', student_id: student_id, balance_amount: re_nov_18, amount: re_nov_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for November-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-11-01', description: 'Transportation Fee for November-2018', student_id: student_id, balance_amount: re_nov_18, amount: re_nov_18)
+                end
             end
             if re_dec_18.present?
-                fee.fee_details.create!(fee_date: '2018-12-01', description: 'Transportation Fee for December-2018', student_id: student_id, balance_amount: re_dec_18, amount: re_dec_18)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for December-2018").present?
+                    fee.fee_details.create!(fee_date: '2018-12-01', description: 'Transportation Fee for December-2018', student_id: student_id, balance_amount: re_dec_18, amount: re_dec_18)
+                end
             end
             if re_jan_19.present?
-                fee.fee_details.create!(fee_date: '2019-01-01', description: 'Transportation Fee for January-2019', student_id: student_id, balance_amount: re_jan_19, amount: re_jan_19)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for January-2019").present?
+                    fee.fee_details.create!(fee_date: '2019-01-01', description: 'Transportation Fee for January-2019', student_id: student_id, balance_amount: re_jan_19, amount: re_jan_19)
+                end
             end
             if re_feb_19.present?
-                fee.fee_details.create!(fee_date: '2019-02-01', description: 'Transportation Fee for February-2019', student_id: student_id, balance_amount: re_feb_19, amount: re_feb_19)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for February-2019").present?
+                    fee.fee_details.create!(fee_date: '2019-02-01', description: 'Transportation Fee for February-2019', student_id: student_id, balance_amount: re_feb_19, amount: re_feb_19)
+                end
             end
             if re_mar_19.present?
-                fee.fee_details.create!(fee_date: '2019-03-01', description: 'Transportation Fee for March-2019', student_id: student_id, balance_amount: re_mar_19, amount: re_mar_19)
+                unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for March-2019").present?
+                    fee.fee_details.create!(fee_date: '2019-03-01', description: 'Transportation Fee for March-2019', student_id: student_id, balance_amount: re_mar_19, amount: re_mar_19)
+                end
             end
 
             if advance_amt < 0
@@ -144,17 +164,23 @@ class Fee < ApplicationRecord
                 update_balance_2019(fee.id, col_feb_19, "2019-02-01")
             end
 
+            puts "************************************************************************"
+            puts "************************************************************************"
+            puts "********************* FINISH NA! ***************************************"
+            puts "************************************************************************"
+            puts "************************************************************************"
+
         end
     end
 
     def self.import_2016(file)
         spreadsheet= open_spreadsheet(file)
-      spreadsheet.default_sheet = spreadsheet.sheets[0]
+        spreadsheet.default_sheet = spreadsheet.sheets[0]
 
-      FeeDetail.destroy_all
-      Fee.destroy_all
-      Receipt.destroy_all
-      ReceiptDetail.destroy_all
+          FeeDetail.destroy_all
+          Fee.destroy_all
+          Receipt.destroy_all
+          ReceiptDetail.destroy_all
       
       headers = Hash.new
       spreadsheet.row(1).each_with_index {|header,i|headers[header] = i}
@@ -213,55 +239,89 @@ class Fee < ApplicationRecord
         fee.save!
 
         if re_sep_16.present?
-            fee.fee_details.create!(fee_date: '2016-09-01', description: 'Transportation Fee for September-2016', student_id: student_id, balance_amount: re_sep_16, amount: re_sep_16)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for September-2016").present?
+                fee.fee_details.create!(fee_date: '2016-09-01', description: 'Transportation Fee for September-2016', student_id: student_id, balance_amount: re_sep_16, amount: re_sep_16)
+            end
         end
         if re_oct_16.present?
-            fee.fee_details.create!(fee_date: '2016-10-01', description: 'Transportation Fee for October-2016', student_id: student_id, balance_amount: re_oct_16, amount: re_oct_16)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for October-2016").present?
+                fee.fee_details.create!(fee_date: '2016-10-01', description: 'Transportation Fee for October-2016', student_id: student_id, balance_amount: re_oct_16, amount: re_oct_16)
+            end
         end
         if re_nov_16.present?
-            fee.fee_details.create!(fee_date: '2016-11-01', description: 'Transportation Fee for November-2016', student_id: student_id, balance_amount: re_nov_16, amount: re_nov_16)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for November-2016").present?
+                fee.fee_details.create!(fee_date: '2016-11-01', description: 'Transportation Fee for November-2016', student_id: student_id, balance_amount: re_nov_16, amount: re_nov_16)
+            end
         end
         if re_dec_16.present?
-            fee.fee_details.create!(fee_date: '2016-12-01', description: 'Transportation Fee for December-2016', student_id: student_id, balance_amount: re_dec_16, amount: re_dec_16)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for December-2016").present?
+                fee.fee_details.create!(fee_date: '2016-12-01', description: 'Transportation Fee for December-2016', student_id: student_id, balance_amount: re_dec_16, amount: re_dec_16)
+            end
         end
         if re_jan_17.present?
-            fee.fee_details.create!(fee_date: '2017-01-01', description: 'Transportation Fee for January-2017', student_id: student_id, balance_amount: re_jan_17, amount: re_jan_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for January-2017").present?
+                fee.fee_details.create!(fee_date: '2017-01-01', description: 'Transportation Fee for January-2017', student_id: student_id, balance_amount: re_jan_17, amount: re_jan_17)
+            end
         end
         if re_feb_17.present?
-            fee.fee_details.create!(fee_date: '2017-02-01', description: 'Transportation Fee for February-2017', student_id: student_id, balance_amount: re_feb_17, amount: re_feb_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for February-2017").present?
+                fee.fee_details.create!(fee_date: '2017-02-01', description: 'Transportation Fee for February-2017', student_id: student_id, balance_amount: re_feb_17, amount: re_feb_17)
+            end
         end
         if re_mar_17.present?
-            fee.fee_details.create!(fee_date: '2017-03-01', description: 'Transportation Fee for March-2017', student_id: student_id, balance_amount: re_mar_17, amount: re_mar_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for March-2017").present?
+                fee.fee_details.create!(fee_date: '2017-03-01', description: 'Transportation Fee for March-2017', student_id: student_id, balance_amount: re_mar_17, amount: re_mar_17)
+            end
         end
         if re_apr_17.present?
-            fee.fee_details.create!(fee_date: '2017-04-01', description: 'Transportation Fee for April-2017', student_id: student_id, balance_amount: re_apr_17, amount: re_apr_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for April-2017").present?
+                fee.fee_details.create!(fee_date: '2017-04-01', description: 'Transportation Fee for April-2017', student_id: student_id, balance_amount: re_apr_17, amount: re_apr_17)
+            end
         end
         if re_may_17.present?
-            fee.fee_details.create!(fee_date: '2017-05-01', description: 'Transportation Fee for May-2017', student_id: student_id, balance_amount: re_may_17, amount: re_may_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for May-2017").present?
+                fee.fee_details.create!(fee_date: '2017-05-01', description: 'Transportation Fee for May-2017', student_id: student_id, balance_amount: re_may_17, amount: re_may_17)
+            end
         end
         if re_jun_17.present?
-            fee.fee_details.create!(fee_date: '2017-06-01', description: 'Transportation Fee for June-2017', student_id: student_id, balance_amount: re_jun_17, amount: re_jun_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for June-2017").present?
+                fee.fee_details.create!(fee_date: '2017-06-01', description: 'Transportation Fee for June-2017', student_id: student_id, balance_amount: re_jun_17, amount: re_jun_17)
+            end
         end
         if re_sep_17.present?
-            fee.fee_details.create!(fee_date: '2017-09-01', description: 'Transportation Fee for September-2017', student_id: student_id, balance_amount: re_sep_17, amount: re_sep_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for September-2017").present?
+                fee.fee_details.create!(fee_date: '2017-09-01', description: 'Transportation Fee for September-2017', student_id: student_id, balance_amount: re_sep_17, amount: re_sep_17)
+            end
         end
         if re_oct_17.present?
-            fee.fee_details.create!(fee_date: '2017-10-01', description: 'Transportation Fee for October-2017', student_id: student_id, balance_amount: re_oct_17, amount: re_oct_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for October-2017").present?
+                fee.fee_details.create!(fee_date: '2017-10-01', description: 'Transportation Fee for October-2017', student_id: student_id, balance_amount: re_oct_17, amount: re_oct_17)
+            end
         end
         if re_nov_17.present?
-            fee.fee_details.create!(fee_date: '2017-11-01', description: 'Transportation Fee for November-2017', student_id: student_id, balance_amount: re_nov_17, amount: re_nov_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for November-2017").present?
+                fee.fee_details.create!(fee_date: '2017-11-01', description: 'Transportation Fee for November-2017', student_id: student_id, balance_amount: re_nov_17, amount: re_nov_17)
+            end
         end
         if re_dec_17.present?
-            fee.fee_details.create!(fee_date: '2017-12-01', description: 'Transportation Fee for December-2017', student_id: student_id, balance_amount: re_dec_17, amount: re_dec_17)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for December-2017").present?
+                fee.fee_details.create!(fee_date: '2017-12-01', description: 'Transportation Fee for December-2017', student_id: student_id, balance_amount: re_dec_17, amount: re_dec_17)
+            end
         end
         if re_jan_18.present?
-            fee.fee_details.create!(fee_date: '2018-01-01', description: 'Transportation Fee for January-2018', student_id: student_id, balance_amount: re_jan_18, amount: re_jan_18)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for January-2018").present?
+                fee.fee_details.create!(fee_date: '2018-01-01', description: 'Transportation Fee for January-2018', student_id: student_id, balance_amount: re_jan_18, amount: re_jan_18)
+            end
         end
         if re_feb_18.present?
-            fee.fee_details.create!(fee_date: '2018-02-01', description: 'Transportation Fee for February-2018', student_id: student_id, balance_amount: re_feb_18, amount: re_feb_18)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for February-2018").present?
+                fee.fee_details.create!(fee_date: '2018-02-01', description: 'Transportation Fee for February-2018', student_id: student_id, balance_amount: re_feb_18, amount: re_feb_18)
+            end
         end
         if re_mar_18.present?
-            fee.fee_details.create!(fee_date: '2018-03-01', description: 'Transportation Fee for March-2018', student_id: student_id, balance_amount: re_mar_18, amount: re_mar_18)
+            unless FeeDetail.where(fee_id: fee.id, description: "Transportation Fee for March-2018").present?
+                fee.fee_details.create!(fee_date: '2018-03-01', description: 'Transportation Fee for March-2018', student_id: student_id, balance_amount: re_mar_18, amount: re_mar_18)
+            end
         end
 
         if col_aug_16.present?
