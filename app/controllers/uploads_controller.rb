@@ -13,4 +13,9 @@ class UploadsController < ApplicationController
           redirect_to root_path
      end
 
+     def master_import_feb
+          Fee.import_feb28(params[:file])
+          redirect_to root_path
+     end
+
 end

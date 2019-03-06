@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'uploads', :to => 'uploads#uploads', as: 'uploads'
   post 'uploads/master_import_2016'
   post 'uploads/master_import_2019'
+  post 'uploads/master_import_feb'
   devise_for :users
   
   resources :fees
