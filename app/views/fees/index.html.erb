@@ -39,11 +39,11 @@
                               <div class="form-group  row">
                                    <label class="col-sm-2 col-form-label">Name</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['Name'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.name : @student_api.present? ? @student_api['Name'] : '' %></h4>
                                    </div>
                                    <label class="col-sm-2 col-form-label">Status</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['StudentStatus'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.status: @student_api.present? ? @student_api['StudentStatus'] : '' %></h4>
                                    </div>
                               </div>
                               <div class="hr-line-dashed"></div>
@@ -51,11 +51,11 @@
                               <div class="form-group  row">
                                    <label class="col-sm-2 col-form-label">Parent Name</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['ParentName'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.parent_name : @student_api.present? ? @student_api['ParentName'] : '' %></h4>
                                    </div>
                                    <label class="col-sm-2 col-form-label">Sex</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['Sex'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.gender : @student_api.present? ? @student_api['Sex'] : '' %></h4>
                                    </div>
                               </div>
                               <div class="hr-line-dashed"></div>
@@ -63,11 +63,11 @@
                               <div class="form-group  row">
                                    <label class="col-sm-2 col-form-label">Nationality</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['Nationality'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.nationality : @student_api.present? ? @student_api['Nationality'] : '' %></h4>
                                    </div>
                                    <label class="col-sm-2 col-form-label">Birthday</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['DOB'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.birthdate : @student_api.present? ? @student_api['DOB'] : '' %></h4>
                                    </div>
                               </div>
                               <div class="hr-line-dashed"></div>
@@ -75,11 +75,11 @@
                               <div class="form-group  row">
                                    <label class="col-sm-2 col-form-label">Father Mobile</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['FatherMobile'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.father_mobile : @student_api.present? ? @student_api['FatherMobile'] : '' %></h4>
                                    </div>
                                    <label class="col-sm-2 col-form-label">Bus Area</label>
                                    <div class="col-sm-4">
-                                        <h4><%= @student.present? ? @student['BusArea'] : '' %></h4>
+                                        <h4><%= @student.present? ? @student.address1 : @student_api.present? ? @student_api['BusArea'] : '' %></h4>
                                    </div>
                               </div>
                               <div class="hr-line-dashed"></div>
