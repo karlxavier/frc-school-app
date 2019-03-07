@@ -49,11 +49,25 @@
                   <% end %>
               </li>
               <li>
-                <%= link_to uploads_path do %>
-                    <i class="fa fa-diamond"></i> 
-                    <span class="nav-label">Uploads</span>
+                <%= link_to root_path do %>
+                    <i class="fa fa-bus"></i> 
+                    <span class="nav-label">Transportation Fees</span>
                 <% end %>
               </li>
+              <li>
+                <%= link_to students_path do %>
+                    <i class="fa fa-users"></i> 
+                    <span class="nav-label">Students</span>
+                <% end %>
+              </li>
+              <% if current_user.is_admin? %>
+                <li>
+                  <%= link_to uploads_path do %>
+                      <i class="fa fa-diamond"></i> 
+                      <span class="nav-label">Uploads</span>
+                  <% end %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </nav>

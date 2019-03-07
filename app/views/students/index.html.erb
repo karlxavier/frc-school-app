@@ -1,0 +1,83 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+     <div class="col-lg-10">
+          <h2>Students</h2>
+          <ol class="breadcrumb">
+               <li class="breadcrumb-item">
+                    <%= link_to 'Home', root_path %>
+               </li>
+               <li class="breadcrumb-item active">
+                    <strong>Students</strong>
+               </li>
+          </ol>
+     </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom: 0;">
+     <div class="row">
+          <div class="col-lg-12">
+               <div class="ibox ">
+                    <div class="ibox-title">
+
+                    </div>
+                    <div class="ibox-content">
+                         <table class="table table-striped dataTables">
+                              <thead>
+                                   <tr>
+                                        <th>Code</th>
+                                        <th>Status</th>
+                                        <th>Name</th>
+                                        <th>Father</th> 
+                                        <th>Gender</th>
+                                        <th>Class</th>
+                                        <th>Division</th>
+                                        <th>Joining Date</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <% @students.each do |student| %>
+                                        <tr>
+                                             <td>
+                                                  <%= student.code %>
+                                             </td>
+                                             <td><%= student.status %></td>
+                                             <td><%= student.name %></td>
+                                             <td><%= student.parent_name %></td>
+                                             <td><%= student.gender %></td>
+                                             <td><%= student.student_class %></td>
+                                             <td><%= student.division %></td>
+                                             <td><%= student.joining_date %></td>
+                                        </tr>
+                                   <% end %>
+                              </tbody>
+                         </table>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+<script type="text/javascript">
+     if (! $('.dataTables').hasClass('initialized')) {
+          $('.dataTables').not('.initialized').addClass('initialized').DataTable({
+               pageLength: 50,
+               responsive: true,
+               order: [[ 2, "asc" ]],
+               dom: '<"html5buttons"B>lTfgitp',
+               buttons: [
+               { extend: 'copy'},
+               {extend: 'csv'},
+               {extend: 'excel', title: 'ExampleFile'},
+               {extend: 'pdf', title: 'ExampleFile'},
+
+               {extend: 'print',
+                    customize: function (win){
+                         $(win.document.body).addClass('white-bg');
+                         $(win.document.body).css('font-size', '10px');
+
+                         $(win.document.body).find('table')
+                                   .addClass('compact')
+                                   .css('font-size', 'inherit');
+               }
+               }
+               ]
+          });
+     };
+</script>

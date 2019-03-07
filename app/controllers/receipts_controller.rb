@@ -16,6 +16,18 @@ class ReceiptsController < ApplicationController
     end
   end
 
+  def generate_fees
+    @fee = Fee.where(student_id: params[:student_id]).first
+    puts '***************'
+    puts @fee.id
+    unless @fee.present?
+      @fee = Fee.new
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def show
     @receipt = Receipt.find(params[:id])
     @student = @receipt.fee.student_id
@@ -71,7 +83,7 @@ class ReceiptsController < ApplicationController
   private
 
     def receipt_params
-      params.require(:receipt).permit(:amount, :fee_id, :payment_type_id, :payment_reference, :receipt_date)
+      params.require(:receipt).permit(:amount, :fee_id, :payment_type_id, :payment_reference, :receipt_date, :january)
     end
 
 end

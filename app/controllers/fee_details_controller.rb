@@ -44,6 +44,11 @@ class FeeDetailsController < ApplicationController
           end
      end
 
+     def create
+      puts '************'
+      puts params[:fee_details][:january]
+     end
+
      def import_csv
       FeeDetail.import(params[:file])
       redirect_to root_path
@@ -52,7 +57,7 @@ class FeeDetailsController < ApplicationController
      private
 
           def fee_detail_params
-               params.require(:fee_detail).permit(:amount, :chargeable, :student_id, :fee_date, :description)
+               params.require(:fee_detail).permit(:fee_id, :amount, :chargeable, :student_id, :fee_date, :description, :january)
           end
 
 end

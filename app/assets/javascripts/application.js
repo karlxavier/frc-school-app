@@ -16,4 +16,5 @@
 //= require popper
 //= require bootstrap
 //= require datatables
+//= require chosen-select
 

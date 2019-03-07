@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   
   resources :fees
   resources :fee_details
+  resources :students, only: [:index]
 
   resources :receipts
 
   get 'generate_receipt/:fee_id', :to => 'receipts#generate_receipt', as: 'generate_receipt'
+  get 'generate_fees/:student_id', :to => 'receipts#generate_fees', as: 'generate_fees'
 
 end

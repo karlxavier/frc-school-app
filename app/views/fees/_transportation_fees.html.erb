@@ -10,18 +10,24 @@
           </div>
      </div>
      <div class="form-group row">
-          <div class="col-sm-4">
+          <div class="col-sm-12">
                <div class="row">
-                    <div class="col-lg-6">
-                         <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
-                    </div>
-                    <div class="col-lg-6">
-                         <% if current_user.is_admin?  %>
-                              <% unless @fees.paid? %>
-                                   <%= link_to 'Modify Student Rate', edit_fee_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                    <div class="col-lg-12">
+                         <div>
+                              <p>
+                              <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                              <% if current_user.is_admin? %>
+                                   <%= link_to 'Generate Fees', generate_fees_path(@fees.student_id), class: "btn btn-outline btn-warning", remote: true %>
                               <% end %>
-                         <% end %>
+                              <% if current_user.is_admin?  %>
+                                   <% unless @fees.paid? %>
+                                        <%= link_to 'Modify Student Rate', edit_fee_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                                   <% end %>
+                              <% end %>
+                              </p>
+                         </div>
                     </div>
+
                </div>
           </div>
      </div>
@@ -32,7 +38,7 @@
                <thead>
                     <tr>
                          <th>Status</th>
-                         <th>Fee Date</th>
+                         <th>Date</th>
                          <th>Description</th> 
                          <th>Amount</th>
                          <th>Paid Amount</th>
