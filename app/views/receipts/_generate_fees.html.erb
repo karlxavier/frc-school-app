@@ -20,15 +20,30 @@
                          </div>
                          <div class="row" style="margin-top: 20px;">
                               <div class="col-lg-6">
-                                   <h1>
-                                   <%=  
-                                        if @fee.fee_details.present?
-                                             @fee.fee_details.order(fee_date: :desc).first.id
+                                   <%
+                                        latest_fee_year = nil
+                                        latest_fee_month = nil
+                                        if @latest_fee.present?
+                                            latest_fee_year = @latest_fee.strftime("%Y")
+                                            latest_fee_month = @latest_fee.strftime("%-m")
+                                            
+                                            if latest_fee_year = Time.current.year
+                                                if latest_fee_month.to_i < Time.current.month.to_i
+                                                    'test'
+                                                end
+                                            else
+
+                                            end
+
                                         else
                                              "none"
                                         end
                                    %>
-                                   </h1>
+                                   
+                                   <div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+  <input class="span2" size="16" type="text" value="12-02-2012">
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
                                      
                                    <div class="checkbox checkbox-primary">
                                         <input id="checkbox2" type="checkbox" checked="" name="fee_details[january]">
@@ -119,3 +134,7 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("#dp3").datepicker();
+</script>

@@ -17,4 +17,6 @@
 //= require bootstrap
 //= require datatables
 //= require chosen-select
+//= require moment
+//= require boostrap-datetimepicker
 

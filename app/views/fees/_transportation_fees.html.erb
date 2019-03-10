@@ -43,12 +43,14 @@
                          <th>Amount</th>
                          <th>Paid Amount</th>
                          <th>Balance Amount</th>
-                         <th></th>
+                         <% if current_user.is_admin %>
+                              <th></th>
+                         <% end %>
                     </tr>
                </thead>
                <tbody>
                     <% FeeDetail.student_all_fees(@fees.id).each do |fee| %>
-                         <tr>
+                         <tr id="<%= fee.id %>">
                               <td>
                                    <% if fee.balance_amount === 0 %>
                                         <span class="badge badge-success">Paid</span>
@@ -63,8 +65,8 @@
                               <td><%= fee.amount %></td>
                               <td><%= fee.paid_amount %></td>
                               <td><%= fee.balance_amount %></td>
-                              <td>
-                                   <% if current_user.is_admin %>
+                              <% if current_user.is_admin %>
+                                   <td>
                                         <div class="btn-group">
                                              <% if fee.balance_amount.present? ? fee.balance_amount : 0 > 0 %>
                                                   <%= link_to 'Edit', edit_fee_detail_path(fee), class: "btn btn-white btn-xs", remote: true %>  
@@ -72,8 +74,8 @@
                                                   <button type="button" class="btn btn-default btn-xs" disabled>Edit</button>
                                              <% end %>
                                         </div>
-                                   <% end %>
-                              </td>
+                                   </td>
+                              <% end %>
                          </tr>
                     <% end %>
                </tbody>

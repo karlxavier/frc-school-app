@@ -18,4 +18,9 @@ class UploadsController < ApplicationController
           redirect_to root_path
      end
 
+     def opbal_2016
+          Fee.import_opbal_2016(params[:file])
+          redirect_to root_path
+     end
+
 end

@@ -11,11 +11,6 @@ class Fee < ApplicationRecord
     def self.import_2019(file)
         spreadsheet= open_spreadsheet(file)
         spreadsheet.default_sheet = spreadsheet.sheets[0]
-
-        # FeeDetail.destroy_all
-        # Fee.destroy_all
-        # Receipt.destroy_all
-        # ReceiptDetail.destroy_all
         
         headers = Hash.new
         spreadsheet.row(1).each_with_index {|header,i|headers[header] = i}
@@ -428,6 +423,33 @@ class Fee < ApplicationRecord
         puts "********************* FINISH NA! ***************************************"
         puts "************************************************************************"
         puts "************************************************************************"
+    end
+
+    def self.import_opbal_2016(file)
+        spreadsheet= open_spreadsheet(file)
+        spreadsheet.default_sheet = spreadsheet.sheets[0]
+        
+        headers = Hash.new
+        spreadsheet.row(1).each_with_index {|header,i|headers[header] = i}
+        ((spreadsheet.first_row + 1)..spreadsheet.last_row).each do |row|
+            student_id = spreadsheet.row(row)[headers['Code']]
+            opbal = spreadsheet.row(row)[headers['OPBAL']]
+            rct_date = spreadsheet.row(row)[headers['RCT DATE']]
+
+            fee = Fee.where(student_id: student_id).first
+            if fee.present?
+                fee_total_amount = fee.total_amount.present? ? fee.total_amount : 0
+                fee_paid_amount = fee.paid_amount.present? ? fee.paid_amount : 0
+                fee_balance_amount = fee.balance_amount.present? ? fee.balance_amount : 0
+
+                fee.update_attributes(
+                    balance_amount: fee_balance_amount - opbal.to_f
+                )
+
+                update_balance_2019(fee.id, opbal, rct_date)
+            end
+
+        end
     end
 
     def self.update_balance_2016(fee_id, rct_amount, rct_date)

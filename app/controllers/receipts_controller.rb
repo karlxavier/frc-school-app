@@ -1,5 +1,6 @@
 class ReceiptsController < ApplicationController
-  
+  require 'date'
+
   def new
     @student = ''
     if params[:filter].present?
@@ -18,10 +19,12 @@ class ReceiptsController < ApplicationController
 
   def generate_fees
     @fee = Fee.where(student_id: params[:student_id]).first
-    puts '***************'
-    puts @fee.id
+    @latest_fee = nil
     unless @fee.present?
       @fee = Fee.new
+    else
+      @latest_fee = @fee.fee_details.order(fee_date: :desc).first.fee_date
+      # @latest_fee = DateTime.parse(@latest_fee.fee_date)
     end
     respond_to do |format|
       format.js
