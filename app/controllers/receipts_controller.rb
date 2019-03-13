@@ -39,6 +39,7 @@ class ReceiptsController < ApplicationController
   def create
     @fee = Fee.find(params[:receipt][:fee_id])
     @receipt = @fee.receipts.new(receipt_params)
+    @receipt.user_id = current_user.id
     @receipt.receipt_date = DateTime.now
 
       respond_to do |format|

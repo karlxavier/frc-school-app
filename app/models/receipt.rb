@@ -1,5 +1,6 @@
 class Receipt < ApplicationRecord
      belongs_to :fee
+     belongs_to :user
      belongs_to :payment_type
      has_many :fee_details, through: :fee
      has_many :receipt_details

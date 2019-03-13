@@ -452,6 +452,60 @@ class Fee < ApplicationRecord
         end
     end
 
+    def self.import_mar_revenue2019(file)
+        spreadsheet= open_spreadsheet(file)
+        spreadsheet.default_sheet = spreadsheet.sheets[0]
+        
+        headers = Hash.new
+        spreadsheet.row(1).each_with_index {|header,i|headers[header] = i}
+        ((spreadsheet.first_row + 1)..spreadsheet.last_row).each do |row|
+            
+            student_id = spreadsheet.row(row)[headers['Code']]
+            march = spreadsheet.row(row)[headers['Mar']]
+
+
+            # total_amount = total_re.present? ? total_re.to_f : 0
+            # paid_amount = total_col.present? ? total_col.to_f : 0
+            # balance_amount = total_bal.present? ? total_bal.to_f : 0
+
+            march_f = march.present? ? march.to_f : 0
+
+            fee = Fee.where(student_id: student_id).first
+            advance_amt = 0
+            unless fee.present?
+                fee = Fee.new
+                fee.student_id = student_id
+                fee.total_amount = march_f
+                fee.paid_amount = 0
+                fee.balance_amount = march_f
+                fee.school_year_id = 2
+                fee.save!
+            else
+                # fee_total_amount = fee.total_amount.present? ? fee.total_amount : 0
+                # fee_paid_amount = fee.paid_amount.present? ? fee.paid_amount : 0
+                fee_balance_amount = fee.balance_amount.present? ? fee.balance_amount : 0
+
+                advance_amt = fee_balance_amount
+
+                fee.update_attributes(balance_amount: march_f + fee_balance_amount)
+            end
+
+            if march.present?
+                fee.fee_details.create!(fee_date: '2019-03-01', description: 'Transportation Fee for March-2019', student_id: student_id, balance_amount: march_f, amount: march_f)
+            end
+     
+            if advance_amt < 0
+                update_balance_2019(fee.id, advance_amt * -1, "2019-03-13")
+            end
+
+        end
+        puts "************************************************************************"
+        puts "************************************************************************"
+        puts "********************* FINISH NA! ***************************************"
+        puts "************************************************************************"
+        puts "************************************************************************"
+    end
+
     def self.update_balance_2016(fee_id, rct_amount, rct_date)
 
         receipt_amount = rct_amount.to_f
@@ -493,7 +547,7 @@ class Fee < ApplicationRecord
         student_fees = FeeDetail.student_fees(fee_id)
 
         if student_fees.present?
-            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3, receipt_date: DateTime.parse(rct_date), user_id: 1)
 
             student_fees.each do |fee|
                 fee_balance_amount = fee.balance_amount

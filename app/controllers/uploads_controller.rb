@@ -23,4 +23,9 @@ class UploadsController < ApplicationController
           redirect_to root_path
      end
 
+     def import_mar_revenue2019
+          Fee.import_mar_revenue2019(params[:file])
+          redirect_to root_path
+     end
+
 end

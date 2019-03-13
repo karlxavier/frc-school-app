@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'uploads/master_import_2019'
   post 'uploads/master_import_feb'
   post 'uploads/opbal_2016'
+  post 'uploads/import_mar_revenue2019'
   devise_for :users
   
   resources :fees
