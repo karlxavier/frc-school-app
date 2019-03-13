@@ -9,8 +9,11 @@
                               <% end %> 
                          </div>
                          <div class="col-sm-6">
-                              <address >
-                              <h2>Fast Rent a Car</h2><br>
+                              <address style="font-size: 18px;">
+                              <h1>
+                                   <%= image_tag 'FastLogo.jpg' %>
+                              </h1>
+                              <br>
                               7F ADNIF Bldg., Corniche Road<br>
                               Abu Dhabi, United Arab Emirates<br>
                               <abbr title="Phone">P:</abbr> +971 2 6220088
@@ -21,27 +24,27 @@
                               <h4>Receipt No.</h4>
                               <h3 class="text-navy" style="font-size: 26px;">RCT-<%= @receipt.id %></h3>
                               <span>To:</span>
-                              <address>
+                              <address style="font-size: 18px;">
                                    <strong><%= session[:ParentName] %></strong><br>
                                    <%= session[:BusArea] %><br>
                                    <%= session[:FatherEmail] %><br>
                                    <abbr title="Phone">P:</abbr> <%= session[:FatherMobile] %>
                               </address>
                               <span>Student:</span>
-                              <address>
+                              <address style="font-size: 18px;">
                                    <strong><%= session[:StudentCode] %> : <%= session[:StudentName] %></strong><br>
                                    Class: <%= session[:StudentClass] %><br>
                                    Division: <%= session[:StudentDivision] %><br>
                               </address>
-                              <p>
+                              <p style="font-size: 18px;">
                                    <span><strong>Receipt Date:</strong> <%= @receipt.receipt_date.strftime("%d-%b-%Y") %></span><br>
                                    <span><strong>Payment Type:</strong> <%= @receipt.payment_type.description %> ( <%= @receipt.payment_reference %> )</span><br>
                               </p>
                          </div>
                     </div>
-
+                    <br>
                     <div class="table-responsive m-t">
-                         <table class="table invoice-table">
+                         <table class="table invoice-table" style="font-size: 18px;">
                               <thead>
                               <tr>
                                    <th>Item List</th>
@@ -68,30 +71,34 @@
 
                     <table class="table invoice-total">
                          <tbody>
-                         <tr>
+                         <tr style="font-size: 18px;">
                               <td><strong>TAX :</strong></td>
-                              <td>0.00</td>
+                              <td>
+                                   <h2 style="font-size: 30px;">
+                                   0.00
+                                   </h2>
+                              </td>
                          </tr>
-                         <tr>
+                         <tr style="font-size: 18px;">
                               <td><strong>TOTAL PAID :</strong></td>
                               <td>
-                                   <h2>
+                                   <h2 style="font-size: 30px;">
                                         <%= @receipt.amount %>
                                    </h2>
                               </td>
                          </tr>
-                         <tr>
+                         <tr style="font-size: 18px;">
                               <td><strong>TOTAL CHARGED :</strong></td>
                               <td>
-                                   <h2>
+                                   <h2 style="font-size: 30px;">
                                         <%= @receipt.receipt_details.sum(:amount) %>
                                    </h2>
                               </td>
                          </tr>
-                         <tr>
+                         <tr style="font-size: 18px;">
                               <td><strong>CARYOVER :</strong></td>
                               <td>
-                                   <h2>
+                                   <h2 style="font-size: 30px;">
                                         <%= @receipt.receipt_details.sum(:amount) - @receipt.amount %>
                                    </h2>
                               </td>
