@@ -18,5 +18,8 @@
 //= require datatables
 //= require chosen-select
 //= require moment
+//= require metis_menu
+//= require bootstrap-datepicker
 //= require boostrap-datetimepicker
+//= require datetimepicker
 

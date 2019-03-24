@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'rb-readline'
 gem 'devise'
 gem 'figaro'
 gem 'bootstrap', '~> 4.0.0'

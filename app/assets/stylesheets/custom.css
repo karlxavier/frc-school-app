@@ -1,0 +1,10 @@
+.form-horizontal .control-label {
+     padding-top: 7px;
+     margin-bottom: 0;
+     text-align: left;
+     float: left;
+ }
+
+ .form-horizontal .control-field {
+     float: left;
+ }

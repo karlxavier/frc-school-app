@@ -16,8 +16,8 @@
                          <div>
                               <p>
                               <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
-                              <% if current_user.is_admin? %>
-                                   <%= link_to 'Generate Fees', generate_fees_path(@fees.student_id), class: "btn btn-outline btn-warning", remote: true %>
+                              <%# <% if current_user.is_admin?
+                                   <%= link_to 'Generate Fees', generate_fees_path(@fees.student_id), class: "btn btn-outline btn-warning", remote: true 
                               <% end %>
                               <% if current_user.is_admin?  %>
                                    <% unless @fees.paid? %>

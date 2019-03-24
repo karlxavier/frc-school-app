@@ -1,0 +1,20 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Students</h2>
+        <ol class="breadcrumb">
+            <li>
+                <%= link_to 'Dashboard', root_path %>
+            </li>
+            <li>
+                <%= link_to 'Students List', students_path %>
+            </li>
+            <li class="active">
+                <strong>Create New Student</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<%= render 'form' %>
