@@ -1,5 +1,6 @@
 class FeesController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_user_guest
 
   def index
     @student = ''
@@ -101,6 +102,12 @@ class FeesController < ApplicationController
 
     def fee_params
         params.require(:fee).permit(:total_amount, :balance_amount, :fee_rate, :paid)
+    end
+
+    def is_user_guest
+      if current_user.is_guest?
+        redirect_to reports_collections_path
+      end
     end
 
 end
