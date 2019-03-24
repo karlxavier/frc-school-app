@@ -38,34 +38,27 @@
                       FRC
                   </div>
               </li>
-              <li style="display: none;">
-                  <%= link_to fees_path do %>
-                    <i class="fa fa-diamond"></i> 
-                    <span class="nav-label">Payment Receipts</span>
-                  <% end %>
-                  <%= link_to receipts_path do %>
-                    <i class="fa fa-diamond"></i> 
-                    <span class="nav-label">Receipts</span>
-                  <% end %>
-              </li>
-              <li>
+              <% unless current_user.is_guest? %>
+                <li>
                 <%= link_to root_path do %>
                     <i class="fa fa-credit-card"></i> 
                     <span class="nav-label">Payment Receipts</span>
-                <% end %>
-              </li>
-              <li style="display: none;">
-                <%= link_to root_path do %>
-                    <i class="fa fa-bus"></i> 
-                    <span class="nav-label">Revenues</span>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to students_path do %>
-                    <i class="fa fa-users"></i> 
-                    <span class="nav-label">Students</span>
-                <% end %>
-              </li>
+                  <% end %>
+                </li>
+                <li style="display: none;">
+                  <%= link_to root_path do %>
+                      <i class="fa fa-bus"></i> 
+                      <span class="nav-label">Revenues</span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to students_path do %>
+                      <i class="fa fa-users"></i> 
+                      <span class="nav-label">Students</span>
+                  <% end %>
+                </li>
+              <% end %>
+
               <li class="">
                     <a href="#" aria-expanded="false"><i class="fa fa-bar-chart-o"></i> 
                       <span class="nav-label">Reports</span><span class="fa arrow"></span>
