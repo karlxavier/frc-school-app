@@ -69,7 +69,7 @@
                                                        <% if collection.fee.student.present? %>
                                                             <%= "#{collection.fee.student.code} - #{collection.fee.student.name}" %>
                                                        <% else %>
-                                                            'N/A'
+                                                            <%= "#{collection.fee.student_id} - N/A" %>
                                                        <% end %>
                                                   <% else %>  
                                                        'N/A'
