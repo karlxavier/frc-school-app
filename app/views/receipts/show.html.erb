@@ -41,6 +41,12 @@
                                    <span><strong>Payment Type:</strong> <%= @receipt.payment_type.description %> ( <%= @receipt.payment_reference %> )</span><br>
                               </p>
                          </div>
+                         <div class="col-sm-12">
+                              <h4>Notes:</h4>
+                              <h3>
+                              <i><%= @receipt.notes.present? ? @receipt.notes : 'Thank you for the payment.' %></i>
+                              </h3>
+                         </div>
                     </div>
                     <br>
                     <div class="table-responsive m-t">

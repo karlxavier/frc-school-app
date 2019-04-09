@@ -33,7 +33,9 @@
                                         <th>Gender</th>
                                         <th>Class</th>
                                         <th>Division</th>
-                                        <th></th>
+                                        <% if current_user.is_admin? %>
+                                             <th></th>
+                                        <% end %>
                                    </tr>
                               </thead>
                               <tbody>
@@ -55,11 +57,13 @@
                                              <td><%= student.gender %></td>
                                              <td><%= student.student_class %></td>
                                              <td><%= student.division %></td>
-                                             <td>
-                                                  <div class="btn-group">
-                                                       <%= link_to 'Edit', edit_student_path(student), class: "btn btn-xs btn-primary" %>
-                                                  </div>
-                                             </td>
+                                             <% if current_user.is_admin? %>
+                                                  <td>
+                                                       <div class="btn-group">
+                                                            <%= link_to 'Edit', edit_student_path(student), class: "btn btn-xs btn-primary" %>
+                                                       </div>
+                                                  </td>
+                                             <% end %>
                                         </tr>
                                    <% end %>
                               </tbody>

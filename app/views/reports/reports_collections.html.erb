@@ -54,7 +54,7 @@
                                         <th>Amount</th>
                                         <th>Balance</th> 
                                         <th>Parent's Name</th>
-                                        <th>Parent's Mobile</th>
+                                        <th>Payment Type</th>
                                    </tr>
                               </thead>
                               <tbody>
@@ -78,7 +78,7 @@
                                              <td><%= collection.amount %></td>
                                              <td><%= collection.fee.balance_amount %></td>
                                              <td><%= collection.fee.student.present? ? collection.fee.student.parent_name : '' %></td>
-                                             <td><%= collection.fee.student.present? ? collection.fee.student.father_mobile : '' %></td>
+                                             <td><%= collection.payment_type.description %></td>
                                         </tr>
                                    <% end %>
                               </tbody>

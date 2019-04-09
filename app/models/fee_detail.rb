@@ -4,6 +4,7 @@ class FeeDetail < ApplicationRecord
     # before_save :update_fee_total_balance
 
     validates_uniqueness_of :fee_id, scope: %i[fee_date student_id]
+    validates :amount, numericality: { other_than: 0 }
 
     scope :student_fees, -> (fee_id) { where(fee_id: fee_id, chargeable: true).where("balance_amount > ?", 0).order(fee_date: :asc) }
     scope :student_fees_upload, -> (fee_id) { where(fee_id: fee_id, chargeable: true).order(fee_date: :asc) }

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :receipts
   get 'reports_collections', to: 'reports#reports_collections', as: 'reports_collections'
 
+  get 'generate_revenue/:fee_id', :to => 'fee_details#generate_revenue', as: 'generate_revenue'
   get 'generate_receipt/:fee_id', :to => 'receipts#generate_receipt', as: 'generate_receipt'
   get 'generate_fees/:student_id', :to => 'receipts#generate_fees', as: 'generate_fees'
 

@@ -15,14 +15,9 @@
                     <div class="col-lg-12">
                          <div>
                               <p>
-                              <%= link_to 'Generate Receipt', generate_receipt_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
+                              <%= link_to 'Generate Revenue Fees', generate_revenue_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
                               <%# <% if current_user.is_admin?
                                    <%= link_to 'Generate Fees', generate_fees_path(@fees.student_id), class: "btn btn-outline btn-warning", remote: true 
-                              <% end %>
-                              <% if current_user.is_admin?  %>
-                                   <% unless @fees.paid? %>
-                                        <%= link_to 'Modify Student Rate', edit_fee_path(@fees.id), class: "btn btn-outline btn-success", remote: true %>
-                                   <% end %>
                               <% end %>
                               </p>
                          </div>
@@ -32,7 +27,6 @@
           </div>
      </div>
      <div class="hr-line-dashed" style="margin-top: 40px;"></div>
-
      <% if student.present? %>
           <table class="table table-striped dataTables">
                <thead>
@@ -41,8 +35,8 @@
                          <th>Date</th>
                          <th>Description</th> 
                          <th>Amount</th>
-                         <th>Paid</th>
-                         <th>Balance</th>
+                         <th>Paid Amount</th>
+                         <th>Balance Amount</th>
                          <% if current_user.is_admin %>
                               <th></th>
                          <% end %>
@@ -68,8 +62,9 @@
                               <% if current_user.is_admin %>
                                    <td>
                                         <div class="btn-group">
-                                             <% if fee.balance_amount.present? ? fee.balance_amount : 0 > 0 %>
-                                                  <%= link_to 'Edit', edit_fee_detail_path(fee), class: "btn btn-white btn-xs", remote: true %>  
+                                             <% if fee.paid_amount.nil? %>
+                                                  <%= link_to 'Edit', edit_fee_detail_path(fee), class: "btn btn-white btn-xs" %>  
+                                                  <%= link_to 'Delete', fee_detail_path(fee), method: :delete, data: { confirm: 'Are you certain you want to delete this?' }, class: "btn btn-xs btn-danger" %>
                                              <% else %>
                                                   <button type="button" class="btn btn-default btn-xs" disabled>Edit</button>
                                              <% end %>

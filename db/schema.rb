@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190324113349) do
+ActiveRecord::Schema.define(version: 20190408130929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20190324113349) do
     t.string "payment_reference"
     t.datetime "receipt_date"
     t.integer "user_id"
+    t.string "notes"
   end
 
   create_table "school_years", force: :cascade do |t|

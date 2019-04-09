@@ -33,6 +33,17 @@ class FeesController < ApplicationController
           if Fee.where(student_id: @student_api['Code']).present?
             @fees = Fee.where(student_id: @student_api['Code']).first
 
+            student = Student.new
+            student.code = @student_api['Code']
+            student.name = @student_api['Name']
+            student.parent_name = @student_api['ParentName']
+            student.father_mobile = @student_api['FatherMobile']
+            student.address1 = @student_api['BusArea']
+            student.father_email = @student_api['FatherEmail']
+            student.student_class = @student_api['StudentClass']
+            student.division = @student_api['StudentDivision']
+            student.save
+
             session[:ParentName] = @student_api['ParentName']
             session[:FatherMobile] = @student_api['FatherMobile']
             session[:BusArea] = @student_api['BusArea']

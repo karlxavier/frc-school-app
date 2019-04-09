@@ -6,6 +6,39 @@ class Fee < ApplicationRecord
 
     scope :student_fees, -> (fee_id) { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
 
+    def self.update_student_balance(fee_id, rct_amount, rct_date)
+
+        receipt_amount = rct_amount.to_f
+        fees = Fee.find(fee_id)
+
+        student_fees = FeeDetail.student_fees(fee_id)
+
+        if student_fees.present?
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount, payment_type_id: 3, receipt_date: DateTime.parse(rct_date), user_id: 1, notes: "Credit all previous caryover charges")
+
+            student_fees.each do |fee|
+                fee_balance_amount = fee.balance_amount
+                
+                    if receipt_amount >= fee_balance_amount
+                        balance_amount = fee_balance_amount
+                        fee.update_attributes(paid_amount: fee.amount, balance_amount: 0)
+                        receipt_amount = receipt_amount - balance_amount
+
+                        my_receipt.receipt_details.create(amount: fee_balance_amount, fee_detail_id: fee.id)
+                    elsif receipt_amount <= fee.amount && receipt_amount > 0
+                        fee.update_attributes(paid_amount: receipt_amount, balance_amount: fee.amount - receipt_amount)
+                        
+
+                        my_receipt.receipt_details.create(amount: receipt_amount, fee_detail_id: fee.id)
+                        receipt_amount = 0
+                    end
+                
+            end
+        else
+            my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
+        end
+    end
+
     require 'csv'
     require 'date'
 
@@ -507,6 +540,56 @@ class Fee < ApplicationRecord
         puts "************************************************************************"
     end
 
+    def self.import_student_revenues(file)
+        spreadsheet= open_spreadsheet(file)
+        spreadsheet.default_sheet = spreadsheet.sheets[0]
+        
+        headers = Hash.new
+        spreadsheet.row(1).each_with_index {|header,i|headers[header] = i}
+        ((spreadsheet.first_row + 1)..spreadsheet.last_row).each do |row|
+            
+            student_id = spreadsheet.row(row)[headers['Code']]
+
+            fee = Fee.where(student_id: student_id).first
+            advance_amt = 0
+            if fee.present?
+                student_rate = fee.fee_details.last.paid_amount
+                student = Student.where(code: student_id).first
+
+                if student.present?
+                    student.update_attributes(rate: student_rate)
+                end
+
+                if fee.fee_details.last.description = "Transportation Fee for March-2019"
+                    fee.fee_details.create!(fee_date: '2019-04-01', description: 'Transportation Fee for April-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-05-01', description: 'Transportation Fee for May-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-06-01', description: 'Transportation Fee for June-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-09-01', description: 'Transportation Fee for September-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-10-01', description: 'Transportation Fee for October-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-11-01', description: 'Transportation Fee for November-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2019-12-01', description: 'Transportation Fee for December-2019', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2020-01-01', description: 'Transportation Fee for January-2020', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2020-02-01', description: 'Transportation Fee for February-2020', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                    fee.fee_details.create!(fee_date: '2020-03-01', description: 'Transportation Fee for March-2020', student_id: student_id, balance_amount: student_rate, amount: student_rate)
+                end
+
+                fee_balance_amount = fee.balance_amount.present? ? fee.balance_amount : 0
+                advance_amt = fee_balance_amount
+                fee.update_attributes(balance_amount: (student_rate * 10) + fee_balance_amount)
+            end
+     
+            if advance_amt < 0
+                update_balance_2019(fee.id, advance_amt * -1, "2019-03-13")
+            end
+
+        end
+        puts "************************************************************************"
+        puts "************************************************************************"
+        puts "********************* FINISH NA! ***************************************"
+        puts "************************************************************************"
+        puts "************************************************************************"
+    end
+
     def self.update_balance_2016(fee_id, rct_amount, rct_date)
 
         receipt_amount = rct_amount.to_f
@@ -607,6 +690,8 @@ class Fee < ApplicationRecord
             my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
         end
     end
+
+
 
 	def self.open_spreadsheet(file)
         case File.extname(file.original_filename)
