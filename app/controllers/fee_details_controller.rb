@@ -30,35 +30,32 @@ class FeeDetailsController < ApplicationController
           
           if @student_api.present?
             puts '**************** not present'
+            student = Student.new
+            student.code = @student_api['Code']
+            student.name = @student_api['Name']
+            student.parent_name = @student_api['ParentName']
+            student.father_mobile = @student_api['FatherMobile']
+            student.address1 = @student_api['BusArea']
+            student.father_email = @student_api['FatherEmail']
+            student.student_class = @student_api['StudentClass']
+            student.division = @student_api['StudentDivision']
+            student.save
+
+            session[:ParentName] = @student_api['ParentName']
+            session[:FatherMobile] = @student_api['FatherMobile']
+            session[:BusArea] = @student_api['BusArea']
+            session[:FatherEmail] = @student_api['FatherEmail']
+
+            session[:StudentName] = @student_api['Name']
+            session[:StudentCode] = @student_api['Code']
+            session[:StudentClass] = @student_api['Class']
+            session[:StudentDivision] = @student_api['Division']
+
             if Fee.where(student_id: @student_api['Code']).present?
               @fees = Fee.where(student_id: @student_api['Code']).first
-  
-              student = Student.new
-              student.code = @student_api['Code']
-              student.name = @student_api['Name']
-              student.parent_name = @student_api['ParentName']
-              student.father_mobile = @student_api['FatherMobile']
-              student.address1 = @student_api['BusArea']
-              student.father_email = @student_api['FatherEmail']
-              student.student_class = @student_api['StudentClass']
-              student.division = @student_api['StudentDivision']
-              student.save
-
-              unless @fees.present?
-                @fees = Fee.create!(student_id: @student.code, total_amount: 0, paid_amount: 0, balance_amount: 0, school_year_id: 3)
-              end
-  
-              session[:ParentName] = @student_api['ParentName']
-              session[:FatherMobile] = @student_api['FatherMobile']
-              session[:BusArea] = @student_api['BusArea']
-              session[:FatherEmail] = @student_api['FatherEmail']
-  
-              session[:StudentName] = @student_api['Name']
-              session[:StudentCode] = @student_api['Code']
-              session[:StudentClass] = @student_api['Class']
-              session[:StudentDivision] = @student_api['Division']
             else
-              @fees = nil
+              # @fees = nil
+              @fees = Fee.create!(student_id: student.code, total_amount: 0, paid_amount: 0, balance_amount: 0, school_year_id: 3)
             end
           end
         end

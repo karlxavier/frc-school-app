@@ -1,6 +1,7 @@
 class FeeDetail < ApplicationRecord
     belongs_to :fee
     has_many :receipt_details
+    has_many :students, through: :fee
     # before_save :update_fee_total_balance
 
     validates_uniqueness_of :fee_id, scope: %i[fee_date student_id]
@@ -9,6 +10,15 @@ class FeeDetail < ApplicationRecord
     scope :student_fees, -> (fee_id) { where(fee_id: fee_id, chargeable: true).where("balance_amount > ?", 0).order(fee_date: :asc) }
     scope :student_fees_upload, -> (fee_id) { where(fee_id: fee_id, chargeable: true).order(fee_date: :asc) }
     scope :student_all_fees, -> (fee_id) { where(fee_id: fee_id).order(fee_date: :desc) }
+
+    scope :filter_revenues, -> (from_date, to_date) { includes(:fee, :students).where("DATE(fee_date) BETWEEN ? AND ?", from_date, to_date) }
+    # scope :filter_revenues, -> (from_date, to_date) { 
+    #             includes(:fee, :students)
+    #             .select("")
+    #             .group("fees.student_id")
+    #             .where("DATE(fee_date) BETWEEN ? AND ?", from_date, to_date)
+    #             .sum(:amount) 
+    #         }
 
     def update_fee_total_balance
         fee = Fee.find(self.fee_id)

@@ -1,8 +1,8 @@
 class Fee < ApplicationRecord
-    has_many :fee_details
-    has_many :receipts
+    has_many :fee_details    
     has_many :refunds
-    # belongs_to :school_year
+    has_many :receipts
+    has_many :receipt_details, through: :receipts
     belongs_to :student, class_name: 'Student', primary_key: 'code', foreign_key: 'student_id'
 
     scope :student_fees, -> (fee_id) { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
