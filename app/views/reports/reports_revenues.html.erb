@@ -62,7 +62,7 @@
                                                   <%= revenue.fee.id %>
                                              </td>
                                              <td>
-                                                <%= revenue.fee.present? ? revenue.fee.student.code : 'N/A' %>
+                                                <%= revenue.fee.present? ? revenue.fee.student.present? ? revenue.fee.student.code : 'N/A' : 'N/A' %>
                                              </td>
                                              <td>
                                                 <%= revenue.fee.present? ? revenue.fee.student.name : 'N/A' %>
