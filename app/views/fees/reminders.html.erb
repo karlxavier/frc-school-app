@@ -58,8 +58,8 @@
                                                                  <span class="label label-danger">Not Active</span>
                                                             <% end %>
                                                        </td>
-                                                       <td>
-                                                            <%= fee.last_notified.present? ? fee.last_notified.strftime("%d-%b-%Y") : 'None' %>
+                                                       <td class="<%= fee.last_notified.present? ? 'text-success' : '' %>">
+                                                            <%= fee.last_notified.present? ? fee.last_notified.strftime("%d-%b-%Y %I:%M%P") : 'None' %>
                                                        </td>
                                                        <td>
                                                             <strong class="text-danger">
