@@ -34,6 +34,10 @@ Rails.application.configure do
     :openssl_verify_mode  => 'none'
   }
 
+  config.after_initialize do
+    Delayed::Job.scaler = :heroku_cedar
+  end
+
 
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
