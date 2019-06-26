@@ -14,6 +14,27 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  config.active_job.queue_adapter = :delayed_job
+
+  config.action_mailer.perform_caching = false
+
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.fastuae.com",
+    :port                 => '2525',
+    :domain               => "fastuae.com",
+    :user_name            => ENV['EMAIL_USERNAME'],
+    :password             => ENV['EMAIL_PASSWORD'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true,
+    :openssl_verify_mode  => 'none'
+  }
+
+
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.

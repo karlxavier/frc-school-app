@@ -22,4 +22,5 @@
 //= require bootstrap-datepicker
 //= require boostrap-datetimepicker
 //= require datetimepicker
+//= require icheck
 

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  fee_id: 1
+  balance_amount: 1
+  student_name: MyString
+  father_email: MyString
+  student_class: MyString
+  student_division: MyString
+
+two:
+  student_id: 1
+  fee_id: 1
+  balance_amount: 1
+  student_name: MyString
+  father_email: MyString
+  student_class: MyString
+  student_division: MyString

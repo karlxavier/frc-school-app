@@ -8,9 +8,26 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+  config.active_job.queue_adapter = :delayed_job
 
   # Show full error reports.
   config.consider_all_requests_local = true
+
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.fastuae.com",
+    :port                 => '2525',
+    :domain               => "fastuae.com",
+    :user_name            => ENV['EMAIL_USERNAME'],
+    :password             => ENV['EMAIL_PASSWORD'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true,
+    :openssl_verify_mode  => 'none'
+  }
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?

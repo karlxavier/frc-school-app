@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+     <meta name="viewport" content="width=device-width">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <title>FRC - Transportation Fees</title>
+</head>
+
+<body>
+
+    <table style="font-size: 14px; font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <tbody>
+            <tr>
+                <td class="container" width="600">
+                    <div class="content">
+                        <h2 style="font-weight: bold; color: #333;font-size: 20px;">
+                            Fast Rent a Car
+                        </h2>
+                        <strong style="margin-top: 15px;">
+                            School Transportation Fee Reminder
+                        </strong>
+  
+                        <div>
+                          <p>
+                            <strong>Student Name: </strong> <%= @student_details %>
+                          </p>
+                          
+                            <p>
+                              This is a letter to notify you that the payment you owe, of <strong>AED <%= @due_amount %></strong> was due today. 
+                              Please submit your payment to Sunrise School cashier's office. 
+                              Bellow are the fee details and your unpaid months.
+                              <ul>
+                                <% @fee_details.each do |fee_detail| %>
+                                  <li>
+                                    <strong>AED <%= fee_detail['balance_amount'] %> : </strong> <%= fee_detail['description'] %>
+                                  </li>
+                                <% end %>
+                              </ul>
+                            </p>
+                            <p>
+                              If you have already made the payment, please ignore this letter. But if you have not yet made the payment, please do so immediately.
+                            </p>
+                            <br>
+                            <p>
+                              Sincerely,
+                              <br>
+                              Fast Rent a Car
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

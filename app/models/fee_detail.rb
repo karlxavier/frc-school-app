@@ -12,6 +12,9 @@ class FeeDetail < ApplicationRecord
     scope :student_all_fees, -> (fee_id) { where(fee_id: fee_id).order(fee_date: :desc) }
 
     scope :filter_revenues, -> (from_date, to_date) { includes(:fee, :students).where("DATE(fee_date) BETWEEN ? AND ?", from_date, to_date) }
+
+    scope :unpaid_fee_details, -> (fee_id) { where("fee_details.balance_amount > 1 AND fee_details.fee_id = ?", fee_id) }
+
     # scope :filter_revenues, -> (from_date, to_date) { 
     #             includes(:fee, :students)
     #             .select("")

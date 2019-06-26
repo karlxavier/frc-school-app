@@ -22,4 +22,7 @@ Rails.application.routes.draw do
   get 'generate_receipt/:fee_id', :to => 'receipts#generate_receipt', as: 'generate_receipt'
   get 'generate_fees/:student_id', :to => 'receipts#generate_fees', as: 'generate_fees'
 
+  get 'reminders', :to => 'fees#reminders', as: 'reminders'
+  get 'send_reminders', :to => 'fees#send_reminders', as: 'send_reminders'
+
 end

@@ -1,4 +1,5 @@
 class Fee < ApplicationRecord
+
     has_many :fee_details    
     has_many :refunds
     has_many :receipts
@@ -6,6 +7,12 @@ class Fee < ApplicationRecord
     belongs_to :student, class_name: 'Student', primary_key: 'code', foreign_key: 'student_id'
 
     scope :student_fees, -> (fee_id) { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
+    scope :fee_reminder, -> { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
+    scope :balance_students, -> { includes(:student).where("fees.balance_amount > 0") }
+    scope :balance_fees_email, -> (feeids) { includes(:student, :fee_details)
+                                            .where(fee_details: { balance_amount: [1..Float::INFINITY]})
+                                            .where(id: feeids) 
+                                            }
 
     def self.update_student_balance(fee_id, rct_amount, rct_date)
 
@@ -691,8 +698,6 @@ class Fee < ApplicationRecord
             my_receipt = Receipt.create(fee_id: fee_id, amount: receipt_amount * -1, payment_type_id: 3, receipt_date: DateTime.parse(rct_date))
         end
     end
-
-
 
 	def self.open_spreadsheet(file)
         case File.extname(file.original_filename)

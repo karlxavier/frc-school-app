@@ -1,0 +1,135 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+     <div class="col-lg-10">
+          <h2>Unpaid Fees</h2>
+          <ol class="breadcrumb">
+               <li class="breadcrumb-item">
+                    <%= link_to 'Home', root_path %>
+               </li>
+               <li class="breadcrumb-item active">
+                    <strong>Unpaid Student Fees</strong>
+               </li>
+          </ol>
+     </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" style="padding-bottom: 0;">
+     <div class="row">
+          <div class="col-lg-12">
+               <%= form_for :send_reminders_path, method: :get do |f| %>
+                    <div class="ibox ">
+                         <div class="ibox-title">
+                              <h5></h5>
+                              <div class="ibox-tools">
+                                   
+                                             <%= f.submit 'Send Email Reminders', class: "btn btn-primary btn-sm", id: "filter_orders" %>
+                            
+                                        
+                              </div>
+                         </div>
+                         <div class="ibox-content">
+                              <table class="table table-striped dataTables">
+                                   <thead>
+                                        <tr>
+                                             <th><input type="checkbox" onclick="checkAll(this)" name="chk[]" class="i-checkss" /></th>
+                                             <th>Code</th>
+                                             <th>Status</th>
+                                             <th>Balance</th>
+                                             <th>Name</th>
+                                             <th>Father</th> 
+                                             <th>Email</th>
+                                             <th>Class</th>
+                                             <th>Division</th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                        <% @balance_students.each do |fee| %>
+                                             <% if fee.student.present? %>
+                                                  <tr>
+                                                       <td>
+                                                            <%= check_box_tag "fees[]", fee.id, false %> 
+                                                       </td>
+                                                       <td>
+                                                            <%= fee.student.code %>
+                                                       </td>
+                                                       <td>
+                                                            <% if fee.student.is_active? %>
+                                                                 <span class="label label-success">Active</span>
+                                                            <% else %>
+                                                                 <span class="label label-danger">Not Active</span>
+                                                            <% end %>
+                                                       </td>
+                                                       <td>
+                                                            <strong class="text-danger">
+                                                                 <%= number_to_currency(fee.balance_amount, unit: "", :precision => 2, :delimiter => ',') %>
+                                                            </strong>
+                                                       </td>
+                                                       <td><%= fee.student.name %></td>
+                                                       <td><%= fee.student.parent_name %></td>
+                                                       <td><%= fee.student.father_email %></td>
+                                                       <td><%= fee.student.student_class %></td>
+                                                       <td><%= fee.student.division %></td>
+                                                  </tr>
+                                             <% end %>
+                                        <% end %>
+                                   </tbody>
+                              </table>
+                         </div>
+                    </div>
+               <% end %>
+          </div>
+     </div>
+</div>
+<script type="text/javascript">
+     if (! $('.dataTables').hasClass('initialized')) {
+          $('.dataTables').not('.initialized').addClass('initialized').DataTable({
+               pageLength: 50000,
+               responsive: true,
+               order: [[ 2, "asc" ]],
+               dom: '<"html5buttons"B>lTfgitp',
+               buttons: [
+               { extend: 'copy'},
+               {extend: 'csv'},
+               {extend: 'excel', title: 'UnpaidFeesFile'},
+               {extend: 'pdf', title: 'UnpaidFeesFile'},
+
+               {extend: 'print',
+                    customize: function (win){
+                         $(win.document.body).addClass('white-bg');
+                         $(win.document.body).css('font-size', '10px');
+
+                         $(win.document.body).find('table')
+                                   .addClass('compact')
+                                   .css('font-size', 'inherit');
+               }
+               }
+               ]
+          });
+     };
+
+     function checkAll(ele) {
+          var checkboxes = document.getElementsByTagName('input');
+          if (ele.checked) {
+          for (var i = 0; i < checkboxes.length; i++) {
+               if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = true;
+               }
+          }
+          } else {
+          for (var i = 0; i < checkboxes.length; i++) {
+               console.log(i)
+               if (checkboxes[i].type == 'checkbox') {
+                    checkboxes[i].checked = false;
+               }
+          }
+          }
+     }
+
+     $(document).ready(function(){
+          $('.i-checks').iCheck({
+               checkboxClass: 'icheckbox_square-green',
+               radioClass: 'iradio_square-green',
+          });
+
+          
+     });
+    
+</script>

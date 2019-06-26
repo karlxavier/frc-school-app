@@ -40,6 +40,7 @@ gem 'jquery-rails'
 gem 'httparty'
 gem "font-awesome-rails"
 gem 'roo'
+gem 'delayed_job_active_record'
 
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'

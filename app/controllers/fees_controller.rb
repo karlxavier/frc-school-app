@@ -109,6 +109,52 @@ class FeesController < ApplicationController
     redirect_to root_path
   end
 
+  def reminders
+    if params[:fees].present?
+      fees = Fee.balance_fees_email(params[:fees])
+
+      fees_json = fees.to_json(:include => {:student => {:only => [:name, :father_email]}, :fee_details => {:except => [:created_at, :updated_at] }})
+      # json_val =  JSON.parse(fees_json)
+      # puts '---------------------'
+      # puts json_val[0]['student']['name']
+      SendEmailJob.set(wait: 20.seconds).perform_later(fees_json)
+
+      # @fees.each do |fee|
+      #   reminder = Reminder.new
+      #   reminder.student_id = fee.student_id
+      #   reminder.fee_id = fee.id
+      #   reminder.balance_amount = fee.balance_amount
+      #   reminder.student_name = fee.student.name
+      #   reminder.father_email = fee.student.present? ? fee.student.father_email : 'NO EMAIL'
+      #   reminder.student_class = fee.student.student_class
+      #   reminder.student_division = fee.student.division
+      #   reminder.save
+
+      #   fee.fee_details.each do |fee_detail|
+      #     if fee_detail.balance_amount == fee_detail.amount
+      #       reminder_detail = reminder.reminder_details.new
+      #       reminder_detail.fee_detail_id = fee_detail.id
+      #       reminder_detail.fee_date = fee_detail.fee_date
+      #       reminder_detail.description = fee_detail.description
+      #       reminder_detail.amount = fee_detail.amount
+      #       reminder_detail.paid_amount = fee_detail.paid_amount
+      #       reminder_detail.balance_amount = fee_detail.balance_amount
+
+      #       reminder_detail.save
+      #     end
+      #   end
+      # end
+
+      # @feess = @fees.as_json( include: {student: {only: [:name, :father_email]}, fee_details: { except: [:fee_date, :created_at, :updated_at] }}, except: [:created_at, :updated_at] )
+      # SendEmailJob.perform_later @feess
+      # @selected_fees = Fee.balance_fees_email(params[:fees]).pluck(:id)
+      # SendEmailJob.set(wait: 5.seconds).perform_later(@selected_fees)
+    else
+      
+    end
+    @balance_students = Fee.balance_students
+  end
+
   private
 
     def fee_params
