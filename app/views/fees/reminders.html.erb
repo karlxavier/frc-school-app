@@ -32,6 +32,7 @@
                                              <th><input type="checkbox" onclick="checkAll(this)" name="chk[]" class="i-checkss" /></th>
                                              <th>Code</th>
                                              <th>Status</th>
+                                             <th>Last Notified</th>
                                              <th>Balance</th>
                                              <th>Name</th>
                                              <th>Father</th> 
@@ -56,6 +57,9 @@
                                                             <% else %>
                                                                  <span class="label label-danger">Not Active</span>
                                                             <% end %>
+                                                       </td>
+                                                       <td>
+                                                            <%= fee.last_notified.present? ? fee.last_notified.strftime("%d-%b-%Y") : 'None' %>
                                                        </td>
                                                        <td>
                                                             <strong class="text-danger">
