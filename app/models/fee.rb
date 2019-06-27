@@ -8,7 +8,12 @@ class Fee < ApplicationRecord
 
     scope :student_fees, -> (fee_id) { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
     scope :fee_reminder, -> { includes(:fee_details).where(id: fee_id).order("fee_details.fee_date ASC") }
-    scope :balance_students, -> { includes(:student).where("fees.balance_amount > 0") }
+
+    scope :balance_students, -> { includes(:student).select('DISTINCT ON ("student_id") *')
+                                .where("fees.balance_amount > 0") 
+                                .order(:student_id, created_at: :asc, id: :asc)
+                            }
+    
     scope :balance_fees_email, -> (feeids) { includes(:student, :fee_details)
                                             .where(fee_details: { balance_amount: [1..Float::INFINITY]})
                                             .where(id: feeids) 
