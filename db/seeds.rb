@@ -65,18 +65,18 @@
 #      @fee.fee_details.create(fee_date: '2019-12-01', description: 'Transportation Fee for December-2019', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)
 # end
 
-students = Student.all
+# students = Student.all
 
-students.each do |student|
-     fees = Fee.where(student_id: student.code)
-     if fees.present?
-          if fees.count > 1
-               fee = Fee.last
+# students.each do |student|
+#      fees = Fee.where(student_id: student.code)
+#      if fees.present?
+#           if fees.count > 1
+#                fee = Fee.last
 
-               fee.update_attributes(temp: true)
+#                fee.update_attributes(temp: true)
 
-          end
-     end
-end
+#           end
+#      end
+# end
 
-puts "data loaded success"
+# puts "data loaded success"

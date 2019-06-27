@@ -8,8 +8,8 @@ class FeesController < ApplicationController
     if params[:filter].present?
       @student = Student.where(code: params[:filter][:code]).first
       if @student.present?
-        if Fee.where(student_id: @student.code, temp: false).present?
-          @fees = Fee.where(student_id: @student.code, temp: false).first
+        if Fee.where(student_id: @student.code).present?
+          @fees = Fee.where(student_id: @student.code).first
 
           session[:ParentName] = @student.parent_name
           session[:FatherMobile] = @student.father_mobile
@@ -29,8 +29,9 @@ class FeesController < ApplicationController
         @student_api = (@results['Student'].find { |u| u['Code'] == params[:filter][:code] })
         
         if @student_api.present?
-          if Fee.where(student_id: @student_api['Code'], temp: false).present?
-            @fees = Fee.where(student_id: @student_api['Code'], temp: false).first
+          puts '**************** not present'
+          if Fee.where(student_id: @student_api['Code']).present?
+            @fees = Fee.where(student_id: @student_api['Code']).first
 
             student = Student.new
             student.code = @student_api['Code']
