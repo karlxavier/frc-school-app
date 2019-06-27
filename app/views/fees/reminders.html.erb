@@ -59,7 +59,7 @@
                                                             <% end %>
                                                        </td>
                                                        <td class="<%= fee.last_notified.present? ? 'text-success' : '' %>">
-                                                            <%= fee.last_notified.present? ? fee.last_notified.strftime("%d-%b-%Y %I:%M%P") : 'None' %>
+                                                            <%= fee.last_notified.present? ? fee.last_notified.strftime("%d-%b-%Y") : 'None' %>
                                                        </td>
                                                        <td>
                                                             <strong class="text-danger">
@@ -85,7 +85,7 @@
 <script type="text/javascript">
      if (! $('.dataTables').hasClass('initialized')) {
           $('.dataTables').not('.initialized').addClass('initialized').DataTable({
-               pageLength: 50000,
+               pageLength: 100,
                responsive: true,
                order: [[ 2, "asc" ]],
                dom: '<"html5buttons"B>lTfgitp',
