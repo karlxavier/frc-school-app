@@ -11,14 +11,14 @@ class ReceiptsController < ApplicationController
   end
 
   def generate_receipt
-    @fee = Fee.find(params[:fee_id])
+    @fee = Fee.find(params[:fee_id], temp: false)
     respond_to do |format|
       format.js
     end
   end
 
   def generate_fees
-    @fee = Fee.where(student_id: params[:student_id]).first
+    @fee = Fee.where(student_id: params[:student_id], temp: false).first
     @latest_fee = nil
     unless @fee.present?
       @fee = Fee.new
@@ -37,7 +37,7 @@ class ReceiptsController < ApplicationController
   end
 
   def create
-    @fee = Fee.find(params[:receipt][:fee_id])
+    @fee = Fee.find(params[:receipt][:fee_id], temp: false)
     @receipt = @fee.receipts.new(receipt_params)
     @receipt.user_id = current_user.id
     @receipt.receipt_date = DateTime.now
@@ -47,7 +47,7 @@ class ReceiptsController < ApplicationController
             @student = @receipt.fee.student_id
 
             receipt_amount = @receipt.amount
-            fees = Fee.find(@receipt.fee_id)
+            fees = Fee.find(@receipt.fee_id, temp: false)
 
             FeeDetail.student_fees(@receipt.fee_id).each do |fee|
                 if receipt_amount >= fee.balance_amount
@@ -65,8 +65,8 @@ class ReceiptsController < ApplicationController
             fees.update_attributes(paid_amount: fees.paid_amount + @receipt.amount, balance_amount: fees.balance_amount - @receipt.amount, paid: true)
 
             if @student.present?
-              if Fee.where(student_id: @student).present?
-                @fees = Fee.where(student_id: @student).first
+              if Fee.where(student_id: @student, temp: false).present?
+                @fees = Fee.where(student_id: @student, temp: false).first
               else
                 @fees = nil
               end

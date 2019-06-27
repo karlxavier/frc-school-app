@@ -4,35 +4,35 @@
 # end
 
 # CREATE ALL STUDENT MASTER
-require 'date'
+# require 'date'
 
-url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
-@students = HTTParty.get(url)
+# url = "http://sunrise.fortiddns.com:8088/sunrise/orisondata.ashx?head=FullStudent"
+# @students = HTTParty.get(url)
 
-Student.destroy_all
-@students['Student'].each do |student|
+# Student.destroy_all
+# @students['Student'].each do |student|
 
-     joining_date = DateTime.strptime(student['JoiningDate'], '%m/%d/%Y')
-     # formatted_date = joining_date.strftime('%m/%d/%Y')
+#      joining_date = DateTime.strptime(student['JoiningDate'], '%m/%d/%Y')
+#      # formatted_date = joining_date.strftime('%m/%d/%Y')
 
-     Student.create(code: student['Code'],
-     name: student['Name'],
-     parent_name: student['ParentName'],
-     status: student['StudentStatus'],
-     gender: student['Sex'],
-     nationality: student['Nationality'],
-     birthdate: student['DOB'],
-     roll_no: student['Roll_no'],
-     student_class: student['Class'],
-     division: student['Division'],
-     address1: student['Address1'],
-     address2: student['Address2'],
-     father_mobile: student['FatherMobile'],
-     father_email: student['FatherEmail'],
-     mother_name: student['MotherName'],
-     joining_date: joining_date,
-     )
-end
+#      Student.create(code: student['Code'],
+#      name: student['Name'],
+#      parent_name: student['ParentName'],
+#      status: student['StudentStatus'],
+#      gender: student['Sex'],
+#      nationality: student['Nationality'],
+#      birthdate: student['DOB'],
+#      roll_no: student['Roll_no'],
+#      student_class: student['Class'],
+#      division: student['Division'],
+#      address1: student['Address1'],
+#      address2: student['Address2'],
+#      father_mobile: student['FatherMobile'],
+#      father_email: student['FatherEmail'],
+#      mother_name: student['MotherName'],
+#      joining_date: joining_date,
+#      )
+# end
 
 
 # code: nil, name: nil, parent_name: nil, status: nil, gender: nil, nationality: nil, birthdate: nil, 
@@ -65,3 +65,18 @@ end
 #      @fee.fee_details.create(fee_date: '2019-12-01', description: 'Transportation Fee for December-2019', student_id: student['Code'], amount: 400, paid_amount: 0, balance_amount: 400)
 # end
 
+students = Student.all
+
+students.each do |student|
+     fees = Fee.where(student_id: student.code)
+     if fees.present?
+          if fees.count > 1
+               fee = Fee.last
+
+               fee.update_attributes(temp: true)
+
+          end
+     end
+end
+
+puts "data loaded success"

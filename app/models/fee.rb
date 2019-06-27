@@ -11,7 +11,7 @@ class Fee < ApplicationRecord
     scope :balance_students, -> { includes(:student).where("fees.balance_amount > 0") }
     scope :balance_fees_email, -> (feeids) { includes(:student, :fee_details)
                                             .where(fee_details: { balance_amount: [1..Float::INFINITY]})
-                                            .where(id: feeids) 
+                                            .where(temp: true, id: feeids) 
                                             }
 
     def self.update_student_balance(fee_id, rct_amount, rct_date)
