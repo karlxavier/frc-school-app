@@ -27,10 +27,13 @@
                                    <tr>
                                         <th>Code</th>
                                         <th>Status</th>
-                                        <th>Gender</th>
+                                        <th>Joining Date</th>
                                         <th>Name</th>
                                         <th>Father</th> 
                                         <th>Rate</th>
+                                        <th>Revenue</th>
+                                        <th>Collection</th>
+                                        <th>Balance</th>
                                         <th>Class</th>
                                         <th>Division</th>
                                         <% if current_user.is_admin? %>
@@ -41,6 +44,11 @@
                               <tbody>
                                    <% @students.each do |student| %>
                                         <tr>
+                                          <% 
+                                            revenue = student.fee_details.to_a.sum { |e| e.amount.to_i }
+                                            collection = student.fee_details.to_a.sum { |e| e.paid_amount.to_i }
+                                           
+                                          %>
                                              <td>
                                                   <%= student.code %>
                                              </td>
@@ -51,13 +59,20 @@
                                                        <span class="label label-danger">Not Active</span>
                                                   <% end %>
                                              </td>
-                                             <td><%= student.gender %></td>
+                                             <td><%= student.joining_date.present? ? student.joining_date.strftime("%d-%b-%y") : ''  %></td>
                                              <td><%= student.name %></td>
                                              <td><%= student.parent_name %></td>
                                              <td>
-                                              <strong>
                                                 <%= student.rate.present? ? number_to_currency(student.rate, unit: "", :precision => 2, :delimiter => ',') : 0.00 %>
-                                              </strong>  
+                                            </td>
+                                            <td><%= revenue.present? ? number_to_currency(revenue, unit: "", :precision => 2, :delimiter => ',') : 0.00 %></td>
+                                            <td><%= collection.present? ? number_to_currency(collection, unit: "", :precision => 2, :delimiter => ',') : 0.00 %></td>
+                                            <td>
+                                              <strong>
+                                                <%= 
+                                                  number_to_currency(student.fees.last.balance_amount, unit: "", :precision => 2, :delimiter => ',')
+                                                %>
+                                              </strong>
                                             </td>
                                              <td><%= student.student_class %></td>
                                              <td><%= student.division %></td>

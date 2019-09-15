@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
      before_action :set_student, only: [:edit, :update]
 
      def index
-          @students = Student.all
+          @students = Student.all_students
      end
 
      def edit
