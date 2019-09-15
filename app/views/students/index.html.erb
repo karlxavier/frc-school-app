@@ -70,7 +70,7 @@
                                             <td>
                                               <strong>
                                                 <%= 
-                                                  number_to_currency(student.fees.last.balance_amount, unit: "", :precision => 2, :delimiter => ',')
+                                                  student.fees.present? ? number_to_currency(student.fees.last.balance_amount, unit: "", :precision => 2, :delimiter => ',') : 0.00
                                                 %>
                                               </strong>
                                             </td>
