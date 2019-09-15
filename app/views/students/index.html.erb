@@ -27,10 +27,10 @@
                                    <tr>
                                         <th>Code</th>
                                         <th>Status</th>
-                                        <th>Rate</th>
+                                        <th>Gender</th>
                                         <th>Name</th>
                                         <th>Father</th> 
-                                        <th>Gender</th>
+                                        <th>Rate</th>
                                         <th>Class</th>
                                         <th>Division</th>
                                         <% if current_user.is_admin? %>
@@ -51,10 +51,14 @@
                                                        <span class="label label-danger">Not Active</span>
                                                   <% end %>
                                              </td>
-                                             <td><%= student.rate %></td>
+                                             <td><%= student.gender %></td>
                                              <td><%= student.name %></td>
                                              <td><%= student.parent_name %></td>
-                                             <td><%= student.gender %></td>
+                                             <td>
+                                              <strong>
+                                                <%= student.rate.present? ? number_to_currency(student.rate, unit: "", :precision => 2, :delimiter => ',') : 0.00 %>
+                                              </strong>  
+                                            </td>
                                              <td><%= student.student_class %></td>
                                              <td><%= student.division %></td>
                                              <% if current_user.is_admin? %>

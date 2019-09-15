@@ -1,0 +1,60 @@
+<div id="modal-shows">
+    <div class="modal fade" id="modal-dialog" style="display: none;">
+        <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <h3>
+                        Generate All Students Revenue
+                    </h3>
+                    <button type="button" class="close pull-right" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <%= form_for FeeDetail.new, url: { controller: 'fee_details', action: 'create_all_revenue' }, html: { class: "form-horizontal" }, remote: true do |f| %>
+                    <div class="modal-body">
+                         <div class="alert alert-info">
+                            <strong>This will generate all revenues for current active students.</strong>
+                            Months of July and August will be automatically excluded.
+                         </div>
+                         <div class="hr-line-dashed"></div>
+                         <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">From</label>
+                              <div class="col-lg-10">
+                              
+                                   <div class="input-group date" id="datetimepicker1">
+                                        <%= f.text_field :created_at, class: "form-control form-control-lg m-b", placeholder: "From Date", required: "" %>
+                                        <div class="input-group-addon">
+                                             <i class="fa fa-calendar"></i>
+                                        </div>
+                                   </div>
+                                   
+                              </div>
+                         </div>
+                         <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">To</label>
+                              <div class="col-lg-10">
+                              
+                                   <div class="input-group date" id="datetimepicker2">
+                                        <%= f.text_field :updated_at, class: "form-control form-control-lg m-b", placeholder: "To Date", required: "" %>
+                                        <div class="input-group-addon">
+                                             <i class="fa fa-calendar"></i>
+                                        </div>
+                                   </div>
+                                   
+                              </div>
+                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                        <%= button_tag(type: 'Submit', class: "btn btn-primary") do %>
+                            Generate
+                        <% end %> 
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+     $(".date").datetimepicker({
+          format: 'MMMM-YYYY',
+     });
+</script>

@@ -15,6 +15,8 @@ class FeeDetail < ApplicationRecord
 
     scope :unpaid_fee_details, -> (fee_id) { where("fee_details.balance_amount > 1 AND fee_details.fee_id = ?", fee_id) }
 
+    scope :is_valid_fee_date, -> (student_id, fee_date) { where(student_id: student_id, fee_date: fee_date) }
+
     # scope :filter_revenues, -> (from_date, to_date) { 
     #             includes(:fee, :students)
     #             .select("")

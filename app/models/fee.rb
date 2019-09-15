@@ -19,6 +19,8 @@ class Fee < ApplicationRecord
                                             .where(id: feeids) 
                                             }
 
+    scope :all_fee_revenues, -> { includes(:student).select(:student_id).where(students: { is_active: true }).uniq }
+
     def self.update_student_balance(fee_id, rct_amount, rct_date)
 
         receipt_amount = rct_amount.to_f

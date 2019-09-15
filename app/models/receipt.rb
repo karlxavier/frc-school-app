@@ -7,7 +7,7 @@ class Receipt < ApplicationRecord
      has_many :students, through: :fee
      # before_create :update_balance
 
-     scope :receipt_fees, -> (fee_id) { includes(:fee, :fee_details).where(fee_id: fee_id, fee: { temp: false}).order("fee_details.fee_date ASC") }
+    #  scope :receipt_fees, -> (fee_id) { includes(:fee, :fee_details).where(fee_id: fee_id, fee: ).order("fee_details.fee_date ASC") }
      scope :filter_collections, -> (from_date, to_date) { includes(:user, :fee, :students).where("DATE(receipt_date) BETWEEN ? AND ?", from_date, to_date) }
 
      private

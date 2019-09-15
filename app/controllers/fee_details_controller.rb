@@ -185,6 +185,22 @@ class FeeDetailsController < ApplicationController
       end
     end
 
+    def generate_all_revenue
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def create_all_revenue
+      puts '************* create_all_revenue'
+      puts params[:fee_detail][:created_at]
+      puts params[:fee_detail][:updated_at]
+      respond_to do |format|
+        GenerateAllRevenueJob.set(wait: 10.seconds).perform_later(params[:fee_detail][:created_at], params[:fee_detail][:updated_at])
+        format.js
+      end
+    end
+
      private
 
           def fee_detail_params

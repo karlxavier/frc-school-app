@@ -23,4 +23,5 @@
 //= require boostrap-datetimepicker
 //= require datetimepicker
 //= require icheck
+//= require sweetalert
 
