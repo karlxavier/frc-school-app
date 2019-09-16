@@ -7,8 +7,9 @@ class FeeDetailsController < ApplicationController
       if params[:filter].present?
         @student = Student.where(code: params[:filter][:code]).first
         if @student.present?
-          if Fee.where(student_id: @student.code).present?
-            @fees = Fee.where(student_id: @student.code).first
+          @fees = @student.fees.last
+          if @fees.present?
+            # @fees = Fee.where(student_id: @student.code).first
   
             session[:ParentName] = @student.parent_name
             session[:FatherMobile] = @student.father_mobile
@@ -133,17 +134,17 @@ class FeeDetailsController < ApplicationController
           date = date.advance(months: 1)
         end
 
-        if fee_details.errors.any?
+        if fee_balance_amount < 0
+          puts '*********** fee_balance_amount < 0'
+          Fee.update_student_balance(fee.id, fee_balance_amount * -1, Time.now.strftime("%Y-%m-%d").to_s)
+        end
+        fee.update_attributes(balance_amount: fee_balance.to_f + fee_balance_amount, student_id: fee.student_id)
+        if fee.errors.any?
           puts '******* ERRORS ********'
-          fee_details.errors.full_messages.each do |message|
+          fee.errors.full_messages.each do |message|
               puts message
           end
         end
-
-        if fee_balance_amount < 0
-          Fee.update_student_balance(fee.id, fee_balance_amount * -1, Time.now.strftime("%Y-%m-%d").to_s)
-        end
-        fee.update_attributes(balance_amount: fee_balance.to_f + fee_balance_amount)
         
         respond_to do |format|
           @fees = Fee.where(student_id: fee.student_id).first
